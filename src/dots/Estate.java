@@ -8,7 +8,7 @@ import util.InputHandler;
 /**
  * Created by mayezhou on 16/4/7.
  */
-public class Estate extends Dot{
+public class Estate extends Dot {
     private Player owner;
     private int level;
     private Street street;
@@ -45,19 +45,19 @@ public class Estate extends Dot{
     }
 
     private void toll(Player player) {
-        double toll = getPrice()*0.3+getStreetBonus();
+        double toll = getPrice() * 0.3 + getStreetBonus();
         toll = Calculation.roundUpDouble(toll);
-        System.out.println("此处为"+owner.getName()+"的房产,需要支付过路费"+toll+"元");
+        System.out.println("此处为" + owner.getName() + "的房产,需要支付过路费" + toll + "元");
         if (player.getCash() >= toll) {
             player.addCash(-toll);
             System.out.println("扣除现金");
-        } else if (player.getDeposit() >= toll-player.getCash()){
+        } else if (player.getDeposit() >= toll - player.getCash()) {
             System.out.println("现金不足,剩余部分交付存款");
             player.setCash(0);
-            player.addDeposit(-(toll-player.getCash()));
+            player.addDeposit(-(toll - player.getCash()));
         } else {
             System.out.println("现金、存款均不足，依照土地编号顺序卖房抵债");
-            double remaining = toll-player.getDeposit()-player.getCash();
+            double remaining = toll - player.getDeposit() - player.getCash();
             player.setDeposit(0);
             player.setCash(0);
             for (Estate estate : player.getEstates()) {
@@ -68,9 +68,9 @@ public class Estate extends Dot{
             }
             player.addCash(-remaining);
             if (player.getCash() < 0) {
-                System.out.println(player.getName()+"始终无法交付全部过路费,已破产,将其全部财产给予"+owner.getName()+", " +
-                        owner.getName()+"仅得部分过路费");
-                owner.addCash(toll+player.getCash());
+                System.out.println(player.getName() + "始终无法交付全部过路费,已破产,将其全部财产给予" + owner.getName() + ", " +
+                        owner.getName() + "仅得部分过路费");
+                owner.addCash(toll + player.getCash());
             }
         }
     }
@@ -78,12 +78,15 @@ public class Estate extends Dot{
     private double getStreetBonus() {
         double bonus = 0;
         Street s = getStreet();
+        if (s == null) {
+            return 0;
+        }
         for (Estate e : s.getEstates()) {
             if (e.owner == owner && e != this) {
                 bonus += e.getPrice();
             }
         }
-        bonus = Calculation.roundUpDouble(bonus*0.1);
+        bonus = Calculation.roundUpDouble(bonus * 0.1);
         return bonus;
     }
 
@@ -104,7 +107,7 @@ public class Estate extends Dot{
             if (owner.getCash() >= 100) {
                 if (level < 6) {
                     level++;
-                    System.out.println("土地升级成功,当前等级为"+level);
+                    System.out.println("土地升级成功,当前等级为" + level);
                 } else {
                     System.out.println("土地已满级_(:з╂∠)_");
                 }
@@ -138,8 +141,8 @@ public class Estate extends Dot{
                         symbol = "■ ";
                         break;
                 }
-                player.setCash(player.getCash()-getPrice());
-                System.out.println("玩家"+player.getName()+"购买土地成功~");
+                player.setCash(player.getCash() - getPrice());
+                System.out.println("玩家" + player.getName() + "购买土地成功~");
                 player.printProperty();
             } else {
                 System.out.println("没钱买什么地_(:з╂∠)_");
@@ -152,14 +155,10 @@ public class Estate extends Dot{
     @Override
     public void printInfo() {
         System.out.println("类型：房产\n名称："
-                + (street==null?"零散房屋" : street.getName()+index+"座")
+                + (street == null ? "零散房屋" : street.getName() + index + "座")
                 + "\n初始价格：200\n当前等级："
                 + getLevel()
-                + "\n拥有者："+(owner== null? "无" : owner.getName()));
-    }
-
-    public void setStreet(Street street) {
-        this.street = street;
+                + "\n拥有者：" + (owner == null ? "无" : owner.getName()));
     }
 
     public void setIndex(int index) {
@@ -186,8 +185,12 @@ public class Estate extends Dot{
         return street;
     }
 
+    public void setStreet(Street street) {
+        this.street = street;
+    }
+
     public int getPrice() {
-        return price*level;
+        return price * level;
     }
 
     public void setPrice(int price) {

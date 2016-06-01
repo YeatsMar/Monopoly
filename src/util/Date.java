@@ -17,7 +17,7 @@ public class Date {//extends Calendar??
     public Date() {//default
         year = 2014;
         month = 1;
-        day = 31;
+        day = 1;
         isLeapYear = (year % 4 == 0 && year % 100 != 0)
                 || (year % 400 == 0);
         weekday = 1;

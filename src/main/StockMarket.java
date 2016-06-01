@@ -28,9 +28,10 @@ public class StockMarket {
 
     public void update() {//invoked by new round
         for (Stock s : stocks) {
-            double rate = (Math.random()*20-10) / 100.0;//less than 10%
+            double rate = (Math.random()*20-10) / 100.0;//-10%~+10%
             rate = Calculation.roundUpDouble(rate);
             s.setRate(rate);
+            s.saveOldPrice(s.getPrice());
             s.setPrice(s.getPrice()*(1+rate));
         }
     }

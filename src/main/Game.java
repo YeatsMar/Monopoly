@@ -20,7 +20,7 @@ public class Game {
         stockMarket = new StockMarket(10);
         map = ReadFile.read();
         map.setStreet();
-        date = new Date();
+        date = new Date(2014,1,1,5);
         players = new Player[number];
         for (int i = 0; i < number; i++) {
             players[i] = new Player("玩家"+(char)('A'+i), 10000, 10000, i, 1, 10);
@@ -140,7 +140,9 @@ public class Game {
             round();
             over = !tbc();
             date.addDate();
-            stockMarket.update();
+            if (date.isWeekday()) {
+                stockMarket.update();
+            }
         }
         int i;
         for (i = 0; i < players.length; i++) {
