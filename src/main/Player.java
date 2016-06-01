@@ -23,10 +23,30 @@ public class Player {
     private int location;
     private int direction;
     private int ticketPoint;
+    private boolean healthy;
     private int[] card = new int[7];//only to record the number of each type
     private ArrayList<Estate> estates = new ArrayList<>();
     private int[] stockAmout = new int[Game.getStockMarket().getNum()];//only to record the number of each type
     private boolean bankrupt;
+
+    public Player(String name, int cash, int deposit, int playerID, int direction, int ticketPoint, boolean healthy) {
+        this.name = name;
+        this.cash = cash;
+        this.deposit = deposit;
+        this.playerID = playerID;
+        this.direction = direction;
+        this.ticketPoint = ticketPoint;
+        this.healthy = healthy;
+        location = 0;
+        ((Dot) Game.getMap().getDots().get(location)).addPlayer(this);
+        bankrupt = false;
+        for (int i = 0; i < card.length; i++) {
+            card[i] = 1;
+        }
+        for (int i = 0; i < stockAmout.length; i++) {
+            stockAmout[i] = 0;
+        }
+    }
 
     public Player(String name, int cash, int deposit, int playerID, int direction, int ticketPoint) {
         this.name = name;
@@ -35,6 +55,7 @@ public class Player {
         this.playerID = playerID;
         this.direction = direction;
         this.ticketPoint = ticketPoint;
+        this.healthy = true;
         location = 0;
         ((Dot) Game.getMap().getDots().get(location)).addPlayer(this);
         bankrupt = false;
@@ -105,6 +126,14 @@ public class Player {
             sum += e.getPrice();
         }
         return sum;
+    }
+
+    public boolean isHealthy() {
+        return healthy;
+    }
+
+    public void setHealthy(boolean healthy) {
+        this.healthy = healthy;
     }
 
     public double getTotalProperty() {

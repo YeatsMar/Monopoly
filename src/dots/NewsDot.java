@@ -20,7 +20,9 @@ public class NewsDot extends Dot{
     public void event(Player player) {
         //trigger news randomly
         System.out.println("现在为您播报新闻:");
-        int num = (int) (Math.random() * 5);
+        //// TODO: 16/6/1 test
+        int num = (int) (Math.random() * 6);
+//        int num = 5;
         Player[] p = Game.getPlayers();
         switch (num) {
             case 0:
@@ -87,6 +89,11 @@ public class NewsDot extends Dot{
                 for (Player i: p) {
                     i.getCard()[random]++;
                 }
+                break;
+            case 5:
+                System.out.println(player.getName() + "突然被过路人袭击受伤,被送往医院抢救!");
+                player.setHealthy(false);
+                player.setLocation(20);
                 break;
         }
     }

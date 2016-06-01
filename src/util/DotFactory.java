@@ -33,6 +33,9 @@ public class DotFactory {
             case 'P':
                 dot = new PropShopDot(x, y);
                 break;
+            case 'H':
+                dot = new HospitalDot(x, y);
+                break;
             default:
                 dot = new Nothing(x, y);
         }

@@ -61,7 +61,11 @@ public class Game {
                         }
                         break;
                     case 6:
-                        player.go();
+                        if (player.isHealthy()) {
+                            player.go();
+                        } else {
+                            player.go(0);
+                        }
                         continueInput = false;
                         break;
                     case 7:
