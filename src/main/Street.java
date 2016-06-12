@@ -9,11 +9,11 @@ public class Street {
     private Estate[] estates;
     private String name;
 
-    public Street(String name, int number, int initialLocation) {
+    public Street(String name, int number, int initialLocation, Game game) {
         this.name = name;
         estates = new Estate[number];
         for (int i = 0; i < number; i++) {
-            estates[i] = Game.getMap().getEstate(initialLocation+i);
+            estates[i] = game.map.getEstate(initialLocation+i);
             estates[i].setStreet(this);
             estates[i].setIndex(i);
         }

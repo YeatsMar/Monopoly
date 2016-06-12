@@ -18,7 +18,8 @@ public class AverageFortune extends Prop {
     @Override
     public boolean function(Player player) {
         IO.showMessage(this.getName() + "使用了均富卡！\n所有玩家现金一致");
-        Player[] players = Game.getPlayers();
+        Game game = player.game;
+        Player[] players = game.players;
         double cash = 0;
         for (Player p : players) {
             cash += p.getCash();
@@ -28,7 +29,7 @@ public class AverageFortune extends Prop {
         for (Player p : players) {
             p.setCash(cash);
         }
-        Game.showAllProperty();
+        game.showAllProperty();
         return true;
     }
 }

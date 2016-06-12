@@ -28,7 +28,7 @@ public class GoListener implements ActionListener {
         int l = player.getLocation();
         if (step > 0) {
             l = Calculation.calculateLocation(l, player.getDirection());
-            Dot dot = Game.getMap().getDot(l);
+            Dot dot = Game.map.getDot(l);
             if (dot.isBlocked()) {
                 IO.print("遇到路障!");
                 ((Timer) e.getSource()).stop();
@@ -40,7 +40,7 @@ public class GoListener implements ActionListener {
             step--;
         } else {
             ((Timer) e.getSource()).stop();
-            Dot dot = Game.getMap().getDot(l);
+            Dot dot = Game.map.getDot(l);
             dot.event(player);
         }
     }

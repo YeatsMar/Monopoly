@@ -9,7 +9,7 @@ import util.Calculation;
 public class Stock {
     private String name;
     private double originalPrice;
-    private double[] prices;
+    public double[] prices;
     private double rate;
     private int index;
     private double price;
@@ -28,10 +28,6 @@ public class Stock {
             prices[i] = prices[i+1];
         }
         prices[4] = oldPrice;
-    }
-
-    public double[] getPrices() {
-        return prices;
     }
 
     public void setRate(double rate) {

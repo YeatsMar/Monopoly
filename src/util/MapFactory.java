@@ -9,8 +9,8 @@ import java.util.Scanner;
 /**
  * Created by mayezhou on 16/4/10.
  */
-public class ReadFile {
-    public static Map read() {
+public class MapFactory {
+    public static Map build() {
         try {
             Scanner input = new Scanner(new File("map.txt"));
             String[] dimension = input.nextLine().split(" ");

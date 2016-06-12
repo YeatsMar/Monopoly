@@ -13,8 +13,10 @@ public class Date {//extends Calendar??
     private boolean isLeapYear;
     private int weekday;
     private boolean isWeekday;
+    private Game game;
 
-    public Date() {//default
+    public Date(Game game) {//default
+        this.game = game;
         year = 2014;
         month = 1;
         day = 1;
@@ -24,7 +26,8 @@ public class Date {//extends Calendar??
         setWeekday();
     }
 
-    public Date(int year, int month, int day, int weekday) {
+    public Date(int year, int month, int day, int weekday, Game game) {
+        this.game = game;
         this.year = year;
         this.month = month;
         this.day = day;
@@ -118,7 +121,7 @@ public class Date {//extends Calendar??
 
     private void interests() {
         IO.print("月底银行存款具有10%利息~");
-        Player[] players = Game.getPlayers();
+        Player[] players = game.players;
         for (Player p:
              players) {
             if (p.isBankrupt()) {

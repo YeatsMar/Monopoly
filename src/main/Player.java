@@ -30,7 +30,7 @@ public class Player {
     private boolean healthy;
     private int[] card = new int[7];//only to record the number of each type
     private ArrayList<Estate> estates = new ArrayList<>();
-    private int[] stockAmout = new int[Game.getStockMarket().getNum()];//only to record the number of each type
+    private int[] stockAmout;//only to record the number of each type
     private boolean bankrupt;
 
     public Player(String name, int cash, int deposit, int playerID, int direction, int ticketPoint, boolean healthy, Game game) {
@@ -48,6 +48,7 @@ public class Player {
         for (int i = 0; i < card.length; i++) {
             card[i] = 1;
         }
+        stockAmout = new int[game.stockMarket.getNum()];
         for (int i = 0; i < stockAmout.length; i++) {
             stockAmout[i] = 0;
         }
@@ -68,6 +69,7 @@ public class Player {
         for (int i = 0; i < card.length; i++) {
             card[i] = 1;
         }
+        stockAmout = new int[game.stockMarket.getNum()];
         for (int i = 0; i < stockAmout.length; i++) {
             stockAmout[i] = 0;
         }
@@ -246,9 +248,9 @@ public class Player {
 
     public void setLocation(int i) {
         i = Calculation.calculateLocation(i, 0);//insure
-        Dot oldDot = Game.getMap().getDots().get(this.location);
+        Dot oldDot = game.map.getDots().get(this.location);
         oldDot.removePlayer(this);
-        Dot newDot = Game.getMap().getDots().get(i);
+        Dot newDot = game.map.getDots().get(i);
         newDot.addPlayer(this);
         this.location = i;
     }

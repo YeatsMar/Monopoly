@@ -6,7 +6,7 @@ import dots.Dot;
 import util.Calculation;
 import util.Date;
 import util.IO;
-import util.ReadFile;
+import util.MapFactory;
 
 
 /**
@@ -25,9 +25,9 @@ public class Game {
     public Game(int number) {
         this.playern = number;
         stockMarket = new StockMarket(10);
-        map = ReadFile.read();
-        map.setStreet();
-        date = new Date(2014, 1, 1, 1);
+        map = MapFactory.build();
+        map.setStreet(this);
+        date = new Date(2014, 1, 1, 1, this);
         players = new Player[number];
         playerID = 0;
         for (int i = 0; i < number; i++) {
@@ -37,16 +37,12 @@ public class Game {
         curPlayer = players[playerID];
     }
 
-    public static Player[] getPlayers() {
-        return players;
+    public int getPlayerID() {
+        return playerID;
     }
 
-    public static Map getMap() {
-        return map;
-    }
-
-    public static StockMarket getStockMarket() {
-        return stockMarket;
+    public int getPlayern() {
+        return playern;
     }
 
     public void registerObserver(Observer observer) {
@@ -57,7 +53,7 @@ public class Game {
         observer.refresh();
     }
 
-    public static String showAllProperty() {
+    public String showAllProperty() {
         String s = "";
         for (Player p : players) {
             s += p.printProperty() + "\n";
@@ -116,7 +112,7 @@ public class Game {
     public void start() {
         for (Player player:
              players) {
-            (Game.getMap().getDots().get(player.getLocation())).addPlayer(player);
+            (map.getDots().get(player.getLocation())).addPlayer(player);
         }
         date.print();
         IO.print("现在是" + curPlayer.getName() + "的操作时间，您的前进方向是"

@@ -54,13 +54,13 @@ public class Map {
         return (Estate) dots.get(location);
     }
 
-    public void setStreet() {
-        Street mercury = new Street("水星", 4, 0);
-        Street venus = new Street("金星", 4, 5);
-        Street earth = new Street("地球", 4, 10);
-        Street mars = new Street("火星", 6, 31);
-        Street jupiter = new Street("木星", 4, 46);
-        Street saturn = new Street("土星", 4, 52);
+    public void setStreet(Game game) {
+        Street mercury = new Street("水星", 4, 0, game);
+        Street venus = new Street("金星", 4, 5, game);
+        Street earth = new Street("地球", 4, 10, game);
+        Street mars = new Street("火星", 6, 31, game);
+        Street jupiter = new Street("木星", 4, 46, game);
+        Street saturn = new Street("土星", 4, 52, game);
     }
 
     public int getWidth() {

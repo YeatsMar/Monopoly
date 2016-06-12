@@ -13,9 +13,8 @@ import java.util.Collection;
  * Created by mayezhou on 16/4/7.
  */
 public abstract class Dot extends JLabel{
-    //location
     protected int x;
-    protected int y;
+    protected int y;    //location
     protected int id;
     protected String symbol;
     protected String info;
@@ -114,9 +113,9 @@ public abstract class Dot extends JLabel{
         return blocked;
     }
 
-    public void setBlocked(boolean blocked) {
+    public void setBlocked(boolean blocked, Game game) {
         this.blocked = blocked;
         setIcon(util.Icon.barricade);
-        Game.observer.refresh();
+        game.observer.refresh();
     }
 }

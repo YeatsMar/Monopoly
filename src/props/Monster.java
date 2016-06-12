@@ -18,8 +18,7 @@ public class Monster extends Prop {
         id = 2;
     }
 
-    public void function(int location) {
-        Map map = Game.getMap();
+    public void function(int location, Map map) {
         Dot dot = map.getDot(location);
         if (Beans.isInstanceOf(dot, Estate.class)) {
             Street street = ((Estate) dot).getStreet();
@@ -34,7 +33,7 @@ public class Monster extends Prop {
 
     @Override
     public boolean function(Player player) {
-        function(player.getLocation());
+        function(player.getLocation(), player.game.map);
         return true;
     }
 }

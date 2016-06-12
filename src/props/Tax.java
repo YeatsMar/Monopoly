@@ -15,7 +15,7 @@ public class Tax extends Prop {
     }
 
     public void function(Player user, int playerID) {
-        Player p = Game.getPlayers()[playerID];
+        Player p = user.game.players[playerID];
         if (Calculation.relativeDistance(user.getPlayerID(), playerID) <= 5) {
             p.setDeposit(p.getDeposit() * 0.7);
             System.out.println("扣除"+p.getName()+"存款30%");
@@ -26,14 +26,15 @@ public class Tax extends Prop {
 
     @Override
     public boolean function(Player player) {
-        int playerID = IO.getInt("请输入要控制的玩家ID\t0-"+(Game.getPlayers().length-1));
-        while (playerID < 0 || playerID >= Game.getPlayers().length) {
+        Game game = player.game;
+        int playerID = IO.getInt("请输入要控制的玩家ID\t0-"+(game.getPlayern()-1));
+        while (playerID < 0 || playerID >= game.getPlayern()) {
             IO.warning();
-            playerID = IO.getInt("请输入要控制的玩家ID\t0-"+(Game.getPlayers().length-1));
+            playerID = IO.getInt("请输入要控制的玩家ID\t0-"+(game.getPlayern()-1));
         }
         while (playerID == player.getPlayerID()) {
             System.out.println("只能对对手使用_(:зゝ∠)_");
-            playerID = IO.getInt("请输入要控制的玩家ID\t0-"+(Game.getPlayers().length-1));
+            playerID = IO.getInt("请输入要控制的玩家ID\t0-"+(game.getPlayern()-1));
         }
         function(player, playerID);
         return false;

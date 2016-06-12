@@ -25,7 +25,7 @@ public class NewsDot extends Dot{
         //trigger news randomly
         System.out.println("现在为您播报新闻:");
         int num = (int) (Math.random() * 6);
-        Player[] p = Game.getPlayers();
+        Player[] p = player.game.players;
         switch (num) {
             case 0:
                 int id = 0;

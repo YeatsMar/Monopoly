@@ -17,10 +17,10 @@ public class Barricade extends Prop {
     }
 
 
-    private void function(int dotID) {
-        Map map = Game.getMap();
+    private void function(int dotID, Game game) {
+        Map map = game.map;
         Dot dot = map.getDot(dotID);
-        dot.setBlocked(true);
+        dot.setBlocked(true, game);
         IO.warning("路障放置成功");
     }
 
@@ -28,7 +28,7 @@ public class Barricade extends Prop {
     public boolean function(Player player) {
         int input = IO.getInt("请输入放置路障的位置距离当前位置的点数,正数为顺时针+,负数为逆时针+");
         input = Calculation.calculateLocation(player.getLocation(), input);
-        function(input);
+        function(input, player.game);
         return true;
     }
 }

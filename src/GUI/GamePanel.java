@@ -32,7 +32,7 @@ public class GamePanel extends JPanel {
         menu.add(stock);
         this.setLayout(new BorderLayout());
         this.add(menu, BorderLayout.NORTH);
-        map = new MapPanel(Game.getMap());
+        map = new MapPanel(game.map);
         this.add(map, BorderLayout.CENTER);
         this.add(warning, BorderLayout.SOUTH);
         this.game = game;
@@ -98,7 +98,7 @@ public class GamePanel extends JPanel {
         });
     }
 
-    public void update() {
+    public void refresh() {
         this.player = game.curPlayer;
         map.repaint();
     }

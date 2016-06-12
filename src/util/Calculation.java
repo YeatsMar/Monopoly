@@ -10,7 +10,7 @@ import java.math.BigDecimal;
  */
 public class Calculation {
     public static int calculateLocation(int location, int n) {
-        int max = Game.getMap().getDots().size();
+        int max = Game.map.getDots().size();
         location += n;
         if (location >= max) {
             location -= max;
@@ -21,11 +21,11 @@ public class Calculation {
     }
 
     public static int relativeDistance(int playerID0, int playerID1) {
-        Player player0 = Game.getPlayers()[playerID0];
-        Player player1 = Game.getPlayers()[playerID1];
+        Player player0 = Game.players[playerID0];
+        Player player1 = Game.players[playerID1];
         int l0 = Math.min(player0.getLocation(), player1.getLocation());
         int l1 = Math.max(player0.getLocation(), player1.getLocation());
-        int max = Game.getMap().getDotsNumber();
+        int max = Game.map.getDotsNumber();
         if (l0 >= 0 || l1 < max) {
             return Math.abs(l0 - l1);
         } else {
