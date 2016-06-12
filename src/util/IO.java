@@ -1,61 +1,63 @@
 package util;
 
-import java.util.Scanner;
+import GUI.TextMessage;
+
+import javax.swing.*;
 
 /**
  * Created by mayezhou on 16/4/8.
  */
-public class InputHandler {
+public class IO {
     public static int getInt(String instruction) {
-        System.out.println(instruction);
         boolean continueInput = true;
         int result = 0;
         do {
             try {
-                Scanner input = new Scanner(System.in);
-                result = input.nextInt();
+                String s = JOptionPane.showInputDialog(instruction);
+                result = Integer.parseInt(s);
                 continueInput = false;
             } catch (Exception e) {
-                System.out.println("输入有误! \n" + instruction);
+                warning();
             }
         } while (continueInput);
         return result;
     }
 
     public static double getDouble(String instruction) {
-        System.out.println(instruction);
         boolean continueInput = true;
         double result = 0;
         do {
             try {
-                Scanner input = new Scanner(System.in);
-                result = input.nextDouble();
+                String s = JOptionPane.showInputDialog(instruction);
+                result = Double.parseDouble(s);
                 continueInput = false;
             } catch (Exception e) {
-                System.out.println("输入有误! \n" + instruction);
+                warning();
             }
         } while (continueInput);
         return result;
     }
 
     public static String getString(String instruction) {
-        System.out.println(instruction);
         boolean continueInput = true;
         String result = null;
         do {
             try {
-                Scanner input = new Scanner(System.in);
-                result = input.nextLine();
+                result = JOptionPane.showInputDialog(instruction);
                 continueInput = false;
             } catch (Exception e) {
-                System.out.println("输入有误! \n" + instruction);
+                warning();
             }
         } while (continueInput);
         return result;
     }
 
     public static void warning() {
-        System.out.println("输入有误,请根据指示重新输入");
+        JOptionPane.showMessageDialog(null, "输入有误,请根据操作重新输入!");
+    }
+
+    public static void warning(String s) {
+        JOptionPane.showMessageDialog(null, s);
     }
 
     public static boolean isNumeric(String s) {
@@ -66,5 +68,15 @@ public class InputHandler {
         } catch (Exception e) {
         }
         return result;
+    }
+
+    public static void showMessage(String s) {
+        warning(s);
+        print(s);
+    }
+
+    public static void print(String s) {
+//        TextMessage.text.append(s);
+        TextMessage.text.setText(s);
     }
 }

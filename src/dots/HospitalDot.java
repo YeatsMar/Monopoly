@@ -1,6 +1,8 @@
 package dots;
 
 import main.Player;
+import util.IO;
+import util.Icon;
 
 /**
  * Created by mayezhou on 16/6/1.
@@ -12,6 +14,7 @@ public class HospitalDot extends Dot {
     public HospitalDot(int x, int y) {
         super(x, y);
         symbol = "医";
+        this.setIcon(Icon.hospital);
         info = "医院";
         accessible = true;
         round = 2;
@@ -23,6 +26,7 @@ public class HospitalDot extends Dot {
 
     @Override
     public void event(Player player) {
+        IO.print(player.getName()+"到达"+getInfo());
         if (!player.isHealthy()) {
             if (round > 0) {
                 System.out.println("您需要治疗,在此期间您不得离开医院,根据您的情况,您至少需要停留在此地"+round+"回合");

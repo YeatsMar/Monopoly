@@ -3,6 +3,8 @@ package dots;
 import main.Game;
 import main.Player;
 import props.Prop;
+import util.IO;
+import util.Icon;
 import util.PropFactory;
 
 /**
@@ -14,15 +16,15 @@ public class NewsDot extends Dot{
         symbol = "新";
         info = "新闻触发点";
         accessible = true;
+        this.setIcon(Icon.newsIcon);
     }
 
     @Override
     public void event(Player player) {
+        IO.print(player.getName()+"到达"+getInfo());
         //trigger news randomly
         System.out.println("现在为您播报新闻:");
-        //// TODO: 16/6/1 test
         int num = (int) (Math.random() * 6);
-//        int num = 5;
         Player[] p = Game.getPlayers();
         switch (num) {
             case 0:
@@ -87,7 +89,7 @@ public class NewsDot extends Dot{
                 int random = (int) Math.random() * 5;
                 System.out.println("所有人随机获得道具卡" + Prop.names[random] + "一张");
                 for (Player i: p) {
-                    i.getCard()[random]++;
+                    i.addCard(random, 1);
                 }
                 break;
             case 5:

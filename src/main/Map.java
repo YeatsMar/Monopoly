@@ -3,7 +3,6 @@ package main;
 import dots.Dot;
 import dots.Estate;
 import util.DotFactory;
-import util.ReadFile;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -16,34 +15,34 @@ public class Map {
     private ArrayList<Dot> dots = new ArrayList<>(68);
     private int height;
     private int width;
-    private int dotsNumber;
+    private int dotsNumber;//dots.size
 
     public Map(int width, int height) {
         this.height = height;
         this.width = width;
         for (int i = 0; i < 68; i++) {//set the size
-            dots.add(new Estate(0,0));
+            dots.add(new Estate(0, 0));
         }
     }
 
-    public Dot getDot(int x, int y, char symbol, int index) {
+    public Dot getDot(int x, int y, char symbol, int index) {// TODO: 16/6/6 Lambda: avoid adding new dots 
         return allDots.stream().filter(
-                item -> (item.getX() == x && item.getY()==y))
+                item -> (item.getX() == x && item.getY() == y))
                 .findFirst().orElse(createDot(x, y, symbol, index));
     }
 
     public Dot getDot(int x, int y) {
         return allDots.stream().filter(
-                item -> (item.getX() == x && item.getY()==y))
+                item -> (item.getX() == x && item.getY() == y))
                 .findFirst().orElse(null);
     }
 
     public Dot getDot(int id) {
-        return (Dot) dots.get(id);
+        return dots.get(id);
     }
 
     private Dot createDot(int x, int y, char symbol, int index) {
-        Dot d = DotFactory.createDot(x , y, symbol);
+        Dot d = DotFactory.createDot(x, y, symbol);
         allDots.add(d);
         if (d.isAccessible()) {
             dots.set(index, d);
@@ -86,9 +85,9 @@ public class Map {
 
     public void printCurrent() {
         StringBuffer sb = new StringBuffer();
-        for(int y=0;y<height;y++){
-            for(int x=0;x<width;x++){
-                sb.append(getDot(x,y).toTextual());
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                sb.append(getDot(x, y).toTextual());
             }
             sb.append("\n");
         }
@@ -97,19 +96,12 @@ public class Map {
 
     public void printInitial() {
         StringBuffer sb = new StringBuffer();
-        for(int y=0;y<height;y++){
-            for(int x=0;x<width;x++){
-                sb.append(getDot(x,y).toOriginalTextual());
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                sb.append(getDot(x, y).toOriginalTextual());
             }
             sb.append("\n");
         }
         System.out.println(sb);
-    }
-
-    //test
-    public static void main(String[] args) {
-        Map map = ReadFile.read();
-        map.printCurrent();
-        map.printInitial();
     }
 }

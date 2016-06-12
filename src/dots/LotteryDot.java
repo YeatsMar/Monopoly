@@ -1,7 +1,8 @@
 package dots;
 
 import main.Player;
-import util.InputHandler;
+import util.Icon;
+import util.IO;
 
 import java.util.Random;
 
@@ -14,14 +15,16 @@ public class LotteryDot extends Dot{
         symbol = "彩";
         info = "彩票开奖点";
         accessible = true;
+        this.setIcon(Icon.lotteryIcon);
     }
 
     @Override
     public void event(Player player) {
-        String s = InputHandler.getString("刮刮乐售卖中,是否购买彩票?\tY/N\n彩票200元,中奖概率10%,奖金2000元~");
+        IO.print(player.getName()+"到达"+getInfo());
+        String s = IO.getString("刮刮乐售卖中,是否购买彩票?\tY/N\n彩票200元,中奖概率10%,奖金2000元~");
         while (!s.equals("Y") && !s.equals("N")) {
-            InputHandler.warning();
-            s = InputHandler.getString("请输入Y/N(大写):");
+            IO.warning();
+            s = IO.getString("请输入Y/N(大写):");
         }
         if (s.equals("Y")) {
             if (player.getCash() >= 200) {

@@ -67,7 +67,7 @@ public class Date {//extends Calendar??
     }
 
     public void print() {
-        System.out.println("今天是"+year+"年"+month+"月"+day+"日\t"+getWeekday());
+        IO.print("今天是"+year+"年"+month+"月"+day+"日\t"+getWeekday());
     }
 
     // addDate method
@@ -117,7 +117,7 @@ public class Date {//extends Calendar??
     }
 
     private void interests() {
-        System.out.println("月底银行存款具有10%利息~");
+        IO.print("月底银行存款具有10%利息~");
         Player[] players = Game.getPlayers();
         for (Player p:
              players) {
@@ -127,7 +127,7 @@ public class Date {//extends Calendar??
             p.setDeposit(p.getDeposit()*1.1);
             p.printProperty();
         }
-        System.out.println("\n\n\n");
+        IO.print("\n\n\n");
     }
 
     public boolean isWeekday() {

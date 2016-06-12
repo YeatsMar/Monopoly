@@ -3,7 +3,7 @@ package props;
 import main.Game;
 import main.Player;
 import util.Calculation;
-import util.InputHandler;
+import util.IO;
 
 /**
  * Created by mayezhou on 16/4/8.
@@ -26,14 +26,14 @@ public class Tax extends Prop {
 
     @Override
     public boolean function(Player player) {
-        int playerID = InputHandler.getInt("请输入要控制的玩家ID\t0-"+(Game.getPlayers().length-1));
+        int playerID = IO.getInt("请输入要控制的玩家ID\t0-"+(Game.getPlayers().length-1));
         while (playerID < 0 || playerID >= Game.getPlayers().length) {
-            InputHandler.warning();
-            playerID = InputHandler.getInt("请输入要控制的玩家ID\t0-"+(Game.getPlayers().length-1));
+            IO.warning();
+            playerID = IO.getInt("请输入要控制的玩家ID\t0-"+(Game.getPlayers().length-1));
         }
         while (playerID == player.getPlayerID()) {
             System.out.println("只能对对手使用_(:зゝ∠)_");
-            playerID = InputHandler.getInt("请输入要控制的玩家ID\t0-"+(Game.getPlayers().length-1));
+            playerID = IO.getInt("请输入要控制的玩家ID\t0-"+(Game.getPlayers().length-1));
         }
         function(player, playerID);
         return false;

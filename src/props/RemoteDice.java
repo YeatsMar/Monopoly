@@ -1,8 +1,7 @@
 package props;
 
-import main.Game;
 import main.Player;
-import util.InputHandler;
+import util.IO;
 
 /**
  * Created by mayezhou on 16/4/8.
@@ -19,10 +18,10 @@ public class RemoteDice extends Prop {
 
     @Override
     public boolean function(Player player) {
-        int n = InputHandler.getInt("请输入想要前进的步数:1-6");
+        int n = IO.getInt("请输入想要前进的步数:1-6");
         while (n < 1 || n > 6) {
-            InputHandler.warning();
-            n = InputHandler.getInt("请输入想要前进的步数:1-6");
+            IO.warning();
+            n = IO.getInt("请输入想要前进的步数:1-6");
         }
         function(n, player);
         return false;

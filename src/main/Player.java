@@ -1,20 +1,24 @@
 package main;
 
-import dots.BankDot;
+import GUI.GoListener;
 import dots.Dot;
 import dots.Estate;
 import props.Prop;
 import util.Calculation;
-import util.InputHandler;
+import util.IO;
+import util.Icon;
 import util.PropFactory;
 
-import java.beans.Beans;
-import java.util.ArrayList;
+import javax.swing.*;
+import javax.swing.Timer;
+import java.util.*;
 
 /**
  * Created by mayezhou on 16/4/7.
  */
 public class Player {
+    public Game game;
+    public ImageIcon icon;
     private String symbol;
     private String name;
     private double cash;
@@ -29,16 +33,17 @@ public class Player {
     private int[] stockAmout = new int[Game.getStockMarket().getNum()];//only to record the number of each type
     private boolean bankrupt;
 
-    public Player(String name, int cash, int deposit, int playerID, int direction, int ticketPoint, boolean healthy) {
+    public Player(String name, int cash, int deposit, int playerID, int direction, int ticketPoint, boolean healthy, Game game) {
+        this.game = game;
         this.name = name;
         this.cash = cash;
         this.deposit = deposit;
         this.playerID = playerID;
+        setIcon();
         this.direction = direction;
         this.ticketPoint = ticketPoint;
         this.healthy = healthy;
         location = 0;
-        ((Dot) Game.getMap().getDots().get(location)).addPlayer(this);
         bankrupt = false;
         for (int i = 0; i < card.length; i++) {
             card[i] = 1;
@@ -48,16 +53,17 @@ public class Player {
         }
     }
 
-    public Player(String name, int cash, int deposit, int playerID, int direction, int ticketPoint) {
+    public Player(String name, int cash, int deposit, int playerID, int direction, int ticketPoint, Game game) {
+        this.game = game;
         this.name = name;
         this.cash = cash;
         this.deposit = deposit;
         this.playerID = playerID;
+        setIcon();
         this.direction = direction;
         this.ticketPoint = ticketPoint;
         this.healthy = true;
         location = 0;
-        ((Dot) Game.getMap().getDots().get(location)).addPlayer(this);
         bankrupt = false;
         for (int i = 0; i < card.length; i++) {
             card[i] = 1;
@@ -67,57 +73,55 @@ public class Player {
         }
     }
 
-    public Boolean useProp() {
-        System.out.println("您现在拥有的道具数量如下:\n");
-        for (int i = 0; i < card.length; i++) {
-            System.out.print(i + ". " + Prop.names[i] + card[i] + "张     ");
+    private void setIcon() {
+        switch (playerID) {
+            case 0:
+                icon = Icon.player0Icon;
+                break;
+            case 1:
+                icon = Icon.player1Icon;
+                break;
+            case  2:
+                icon = Icon.player2Icon;
+                break;
+            case  3:
+                icon = Icon.player3Icon;
+                break;
         }
-        System.out.println();
-        boolean ct = true;
-        do {
-            String input = InputHandler.getString("请输入您想要的卡片编号(输入h获得帮助,输入x返回上一层)");
-            switch (input) {
-                case "h":
-                    System.out.println("指示已经写明,道具卡顾名思义_(:зゝ∠)_");
-                    break;
-                case "x":
-                    ct = false;
-                    break;
-                default:
-                    try {
-                        int inputValue = Integer.parseInt(input);
-                        if (inputValue < 0 || inputValue >= card.length) {
-                            System.out.println("卡片编号为0-" + card.length + "请重新输入");
-                        } else {
-                            if (card[inputValue] > 0) {
-                                Prop prop = PropFactory.createProp(inputValue);
-                                card[inputValue]--;
-                                return prop.function(this);
-                            } else {
-                                System.out.println(Prop.names[inputValue]+"数量不足,操作失败");
-                            }
-                        }
-                    } catch (Exception e) {
-                        InputHandler.warning();
-                    }
-            }
-        } while (ct);
-        return true;
     }
 
-    public void printProperty() {
-        if (isBankrupt()) {
-            System.out.println(name + "已破产,资产全部充公_(:зゝ∠)_");
-            return;
+    public Boolean useProp(int i) {
+        try {
+            if (card[i] > 0) {
+                Prop prop = PropFactory.createProp(i);
+                boolean result = prop.function(this);//may be NULL
+                card[i]--;
+                return result;
+            } else {
+                IO.warning(Prop.names[i]+"数量不足,操作失败");
+                return true;
+            }
+        } catch (NullPointerException e) {
+            IO.print(name+"中途放弃使用道具_(:зゝ∠)_");
+            return true;
         }
-        System.out.println(name + "\t现金:" + cash + "\t存款:" + deposit + "\t房产价值："
-                + getEstateTotal()+"\t资产总额"+getTotalProperty());
-        System.out.println("股票持有:");
+    }
+
+    public String printProperty() {
+        String s = "";
+        if (isBankrupt()) {
+            s += name + "已破产,资产全部充公_(:зゝ∠)_";
+            return s;
+        }
+        s += name + "\t现金:" + cash + "\t存款:" + deposit + "\t房产价值："
+                + getEstateTotal()+"\t资产总额"+getTotalProperty();
+        s += "\n股票持有:\n";
         for (int i = 0; i < stockAmout.length; i++) {
             if (stockAmout[i] != 0) {
-                System.out.println("股票" + i + "\t持有:" + stockAmout[i]);
+                s += "股票" + i + "\t持有:" + stockAmout[i] + "\n";
             }
         }
+        return s;
     }
 
     private int getEstateTotal() {
@@ -134,6 +138,7 @@ public class Player {
 
     public void setHealthy(boolean healthy) {
         this.healthy = healthy;
+        game.notifyObserver();
     }
 
     public double getTotalProperty() {
@@ -163,16 +168,19 @@ public class Player {
     public void setCash(double cash) {
         cash = Calculation.roundUpDouble(cash);
         this.cash = cash;
+        game.notifyObserver();
     }
 
     public void addCash(double c) {
         cash += c;
         cash = Calculation.roundUpDouble(cash);
+        game.notifyObserver();
     }
 
     public void addDeposit(double c) {
         deposit += c;
         deposit = Calculation.roundUpDouble(deposit);
+        game.notifyObserver();
     }
 
     public double getDeposit() {
@@ -182,6 +190,7 @@ public class Player {
     public void setDeposit(double deposit) {
         deposit = Calculation.roundUpDouble(deposit);
         this.deposit = deposit;
+        game.notifyObserver();
     }
 
     public int getPlayerID() {
@@ -198,6 +207,7 @@ public class Player {
 
     public void setDirection(int direction) {
         this.direction = direction;
+        game.notifyObserver();
     }
 
     public String getDirectionString() {
@@ -214,18 +224,20 @@ public class Player {
 
     public void setTicketPoint(int ticketPoint) {
         this.ticketPoint = ticketPoint;
+        game.notifyObserver();
     }
 
     public ArrayList<Estate> getEstates() {
         return estates;
     }
 
-    public int[] getCard() {
-        return card;
+    public void addCard(int index, int n) {
+        card[index] += n;
+        game.notifyObserver();
     }
 
-    public void setCard(int[] card) {
-        this.card = card;
+    public int getCard(int index) {
+        return card[index];
     }
 
     public int getLocation() {
@@ -234,37 +246,17 @@ public class Player {
 
     public void setLocation(int i) {
         i = Calculation.calculateLocation(i, 0);//insure
-        Dot oldDot = (Dot) Game.getMap().getDots().get(this.location);
+        Dot oldDot = Game.getMap().getDots().get(this.location);
         oldDot.removePlayer(this);
-        Dot newDot = (Dot) Game.getMap().getDots().get(i);
+        Dot newDot = Game.getMap().getDots().get(i);
         newDot.addPlayer(this);
-        System.out.println("到达"+newDot.getInfo());
         this.location = i;
-        newDot.event(this);
-    }
-
-    public void go() {
-        int go = 1 + (int) (Math.random() * 6);
-        go(go);
     }
 
     public void go(int go) {
-        System.out.println("前进"+go+"步");
-        int l = location;
-        while (go > 0) {
-            l = Calculation.calculateLocation(l, direction);
-            Dot dot = Game.getMap().getDot(l);
-            if (dot.isBlocked()) {
-                System.out.println("遇到路障!");
-                setLocation(l);//invoke event here
-                return;
-            } else if (dot instanceof BankDot && go != 1) {
-                System.out.println("途经银行可顺道办理业务~");
-                ((BankDot) dot).event(this);
-            }
-            go--;
-        }
-        setLocation(l);
+        IO.print(name+"前进"+go+"步");
+        Timer timer = new Timer(150, new GoListener(go, this));
+        timer.start();
     }
 
     public boolean isBankrupt() {
@@ -276,6 +268,7 @@ public class Player {
 
     public void setBankrupt(boolean bankrupt) {
         this.bankrupt = bankrupt;
+        game.notifyObserver();
     }
 
     public int[] getStockAmout() {

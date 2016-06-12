@@ -2,7 +2,7 @@ package main;
 
 import util.Calculation;
 import util.Date;
-import util.InputHandler;
+import util.IO;
 
 
 /**
@@ -45,13 +45,13 @@ public class StockMarket {
             }
             boolean ct = true;
             do {
-                String input = InputHandler.getString("输入b x n表示买入序号为x的股票n股, s x n 表示卖出序号为x的股票n股, q离开股市");
+                String input = IO.getString("输入b x n表示买入序号为x的股票n股, s x n 表示卖出序号为x的股票n股, q离开股市");
                 System.out.println("仅用一个空格隔开, x和n均为数字");
                 String[] inputs = input.split(" ");
                 if (inputs.length == 3
                         && (inputs[0].equals("b") || inputs[0].equals("s"))
-                        && InputHandler.isNumeric(inputs[1])
-                        && InputHandler.isNumeric(inputs[2])) {
+                        && IO.isNumeric(inputs[1])
+                        && IO.isNumeric(inputs[2])) {
                     int x = Integer.parseInt(inputs[1]);
                     int n = Integer.parseInt(inputs[2]);
                     if (inputs[0].equals("b")) {
@@ -62,7 +62,7 @@ public class StockMarket {
                 } else if (inputs.length == 1 && inputs[0].equals("q")){
                     ct = false;
                 } else {
-                    InputHandler.warning();
+                    IO.warning();
                 }
             } while (ct);
         }
@@ -75,7 +75,7 @@ public class StockMarket {
         }
         if (n < 0) {
             System.out.println("购买股数不可为负!");
-            InputHandler.warning();
+            IO.warning();
             return;
         }
         double cost = n * stocks[x].getPrice();
@@ -106,7 +106,7 @@ public class StockMarket {
         }
         if (n < 0) {
             System.out.println("股数不可为负!");
-            InputHandler.warning();
+            IO.warning();
             return;
         }
         if (player.getStockAmout()[x] < n) {

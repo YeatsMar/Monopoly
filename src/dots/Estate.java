@@ -3,7 +3,8 @@ package dots;
 import main.Player;
 import main.Street;
 import util.Calculation;
-import util.InputHandler;
+import util.Icon;
+import util.IO;
 
 /**
  * Created by mayezhou on 16/4/7.
@@ -18,6 +19,7 @@ public class Estate extends Dot {
     public Estate(int x, int y) {
         super(x, y);
         symbol = "◎ ";
+        this.setIcon(Icon.noownerIcon);
         info = "房屋";
         accessible = true;
         owner = null;
@@ -27,6 +29,7 @@ public class Estate extends Dot {
 
     @Override
     public void event(Player player) {
+        IO.print(player.getName()+"到达"+getInfo());
         switch (symbol) {
             case "◎ "://no owner
                 buy(player);
@@ -97,11 +100,11 @@ public class Estate extends Dot {
     }
 
     private void levelUp() {
-        String s = InputHandler.getString("该地为您的土地，请问是否选择升级？升级需花费100元\tY/N");
+        String s = IO.getString("该地为您的土地，请问是否选择升级？升级需花费100元\tY/N");
         s = s.toUpperCase();
         while (!s.equals("Y") && !s.equals("N")) {
-            InputHandler.warning();
-            s = InputHandler.getString("该地为您的土地，请问是否选择升级？升级需花费100元\tY/N");
+            IO.warning();
+            s = IO.getString("该地为您的土地，请问是否选择升级？升级需花费100元\tY/N");
         }
         if (s.equals("Y")) {
             if (owner.getCash() >= 100) {
@@ -119,10 +122,10 @@ public class Estate extends Dot {
     }
 
     private void buy(Player player) {
-        String s = InputHandler.getString("是否购买土地?需用现金支付200元\tY/N");
+        String s = IO.getString("是否购买土地?需用现金支付200元\tY/N");
         while (!s.equals("Y") && !s.equals("N")) {
-            InputHandler.warning();
-            s = InputHandler.getString("请输入Y/N(大写)");
+            IO.warning();
+            s = IO.getString("请输入Y/N(大写)");
         }
         if (s.equals("Y")) {
             if (player.getCash() >= getPrice()) {
@@ -130,14 +133,18 @@ public class Estate extends Dot {
                 switch (player.getPlayerID()) {
                     case 0:
                         symbol = "○ ";
+                        this.setIcon(Icon.ownerAIcon[0]);
                         break;
                     case 1:
+                        this.setIcon(Icon.ownerBIcon[0]);
                         symbol = "● ";
                         break;
                     case 2:
+                        this.setIcon(Icon.ownerCIcon[0]);
                         symbol = "□ ";
                         break;
                     case 3:
+                        this.setIcon(Icon.ownerDIcon[0]);
                         symbol = "■ ";
                         break;
                 }
@@ -154,7 +161,7 @@ public class Estate extends Dot {
 
     @Override
     public void printInfo() {
-        System.out.println("类型：房产\n名称："
+        IO.showMessage("类型：房产\n名称："
                 + (street == null ? "零散房屋" : street.getName() + index + "座")
                 + "\n初始价格：200\n当前等级："
                 + getLevel()

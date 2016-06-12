@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="krysalis-jCharts-1.0.0-alpha-1">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/krysalis-jCharts-1.0.0-alpha-1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

@@ -3,6 +3,7 @@ package props;
 import main.Game;
 import main.Player;
 import util.Calculation;
+import util.IO;
 
 /**
  * Created by mayezhou on 16/4/8.
@@ -16,6 +17,7 @@ public class AverageFortune extends Prop {
 
     @Override
     public boolean function(Player player) {
+        IO.showMessage(this.getName() + "使用了均富卡！\n所有玩家现金一致");
         Player[] players = Game.getPlayers();
         double cash = 0;
         for (Player p : players) {
@@ -26,9 +28,7 @@ public class AverageFortune extends Prop {
         for (Player p : players) {
             p.setCash(cash);
         }
-        for (Player p : players) {
-            p.printProperty();
-        }
+        Game.showAllProperty();
         return true;
     }
 }

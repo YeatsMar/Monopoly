@@ -2,14 +2,17 @@ package dots;
 
 import main.Game;
 import main.Player;
+import util.*;
 
+import javax.swing.*;
+import javax.swing.Icon;
 import java.util.ArrayList;
 import java.util.Collection;
 
 /**
  * Created by mayezhou on 16/4/7.
  */
-public abstract class Dot {
+public abstract class Dot extends JLabel{
     //location
     protected int x;
     protected int y;
@@ -29,10 +32,8 @@ public abstract class Dot {
     public abstract void event(Player player);
 
     public void printInfo() {
-        System.out.println("类型：");
+        IO.warning("类型：");
     }
-
-    //getter & setter
 
     public boolean isAccessible() {
         return accessible;
@@ -86,12 +87,9 @@ public abstract class Dot {
         this.symbol = symbol;
     }
 
-    public Collection<Player> getPlayers() {
-        return players;
-    }
-
     public void removePlayer(Player player) {
         players.remove(player);
+        player.game.notifyObserver();
     }
 
     public boolean hasPlayer() {
@@ -100,6 +98,16 @@ public abstract class Dot {
 
     public void addPlayer(Player player) {
         players.add(0, player);
+        player.game.notifyObserver();
+    }
+
+    @Override
+    public Icon getIcon() {
+        if (hasPlayer()) {
+            return players.get(players.size()-1).icon;
+        } else {
+            return super.getIcon();
+        }
     }
 
     public boolean isBlocked() {
@@ -108,6 +116,7 @@ public abstract class Dot {
 
     public void setBlocked(boolean blocked) {
         this.blocked = blocked;
+        setIcon(util.Icon.barricade);
+        Game.observer.refresh();
     }
-
 }

@@ -11,6 +11,7 @@ public class Nothing extends Dot {
         super(x, y);
         symbol = "  ";
         accessible = false;
+        this.setIcon(null);
     }
 
     @Override
