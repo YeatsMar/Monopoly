@@ -1,5 +1,6 @@
 package GUI;
 
+import main.Game;
 import main.Player;
 import util.Icon;
 
@@ -24,7 +25,7 @@ public class PropertyMessage extends JPanel {
 		this.player = player;
 		setLayout((new GridLayout(6, 2, 5, 5)));
 		label = new JLabel();
-		setLabel();
+		setPlayerImage();
 		labels[0] = new JLabel(player.getName());
 		labels[9] = new JLabel("前进方向");
 		labels[10] = new JLabel(player.getDirectionString());
@@ -38,6 +39,18 @@ public class PropertyMessage extends JPanel {
 		labels[8] = new JLabel(player.getTotalProperty() + "");
 		setLabels();
 		setBorder(new TitledBorder("玩家信息"));
+	}
+
+	public void refresh() {
+		this.player = Game.curPlayer;
+		setPlayerImage();
+		labels[0].setText(player.getName());
+		labels[10].setText(player.getDirectionString());
+		labels[2].setText(player.getCash() + "");
+		labels[4].setText(player.getDeposit() + "");
+		labels[6].setText(player.getTicketPoint() + "");
+		labels[8].setText(player.getTotalProperty() + "");
+		repaint();
 	}
 
 	private void setLabels() {
@@ -54,19 +67,19 @@ public class PropertyMessage extends JPanel {
 		}
 	}
 
-	private void setLabel() {
+	private void setPlayerImage() {
 		switch (player.getPlayerID()) {
 			case 0:
-				label = new JLabel(Icon.player0Icon);
+				label.setIcon(Icon.player0Icon);
 				break;
 			case 1:
-				label = new JLabel(Icon.player1Icon);
+				label.setIcon(Icon.player1Icon);
 				break;
 			case 2:
-				label = new JLabel(Icon.player2Icon);
+				label.setIcon(Icon.player2Icon);
 				break;
 			case 3:
-				label = new JLabel(Icon.player3Icon);
+				label.setIcon(Icon.player3Icon);
 				break;
 		}
 	}

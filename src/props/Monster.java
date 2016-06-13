@@ -6,6 +6,7 @@ import main.Game;
 import main.Map;
 import main.Player;
 import main.Street;
+import util.IO;
 
 import java.beans.Beans;
 
@@ -20,14 +21,14 @@ public class Monster extends Prop {
 
     public void function(int location, Map map) {
         Dot dot = map.getDot(location);
-        if (Beans.isInstanceOf(dot, Estate.class)) {
-            Street street = ((Estate) dot).getStreet();
-            for (Estate e : street.getEstates()) {
+        try {
+            Street street = ((Estate) dot).getStreet();//ClassCastException
+            for (Estate e : street.getEstates()) {//NullPointerException
                 e.setLevel(1);
             }
-            System.out.println("当前所在街道所有房屋等级恢复为1");
-        } else {
-            System.out.println("当前所在点没有街道");
+            IO.showMessage("当前所在街道所有房屋等级恢复为1");
+        } catch (Exception e){
+            IO.showMessage("当前所在点没有街道_(:зゝ∠)_");
         }
     }
 

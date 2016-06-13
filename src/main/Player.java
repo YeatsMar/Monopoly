@@ -92,20 +92,18 @@ public class Player {
         }
     }
 
-    public Boolean useProp(int i) {
+    public void useProp(int i) {
         try {
             if (card[i] > 0) {
                 Prop prop = PropFactory.createProp(i);
-                boolean result = prop.function(this);//may be NULL
-                card[i]--;
-                return result;
+                if(prop.function(this)) {//may be NULL
+                    card[i]--;
+                }
             } else {
                 IO.warning(Prop.names[i]+"数量不足,操作失败");
-                return true;
             }
         } catch (NullPointerException e) {
             IO.print(name+"中途放弃使用道具_(:зゝ∠)_");
-            return true;
         }
     }
 
@@ -256,7 +254,6 @@ public class Player {
     }
 
     public void go(int go) {
-        IO.print(name+"前进"+go+"步");
         Timer timer = new Timer(150, new GoListener(go, this));
         timer.start();
     }

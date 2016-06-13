@@ -96,9 +96,7 @@ public class PropsFrame extends JFrame {
                     break;
                 }
             }
-            if(!player.useProp(card)) {
-                player.game.next();
-            }
+            player.useProp(card);
             frame.dispose();
         }
     }

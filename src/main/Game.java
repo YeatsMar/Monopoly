@@ -83,8 +83,7 @@ public class Game {
 
     public void showCertainDotInfo(Player player) {
         try {
-            String n = IO.getString("请输入您想查看的点与您当前位置相差的步数（后方用负数）");
-            int num = Integer.parseInt(n);
+            int num = IO.getInt("请输入您想查看的点与您当前位置相差的步数（后方用负数）");
             int location = Calculation.calculateLocation(player.getLocation(), num);
             Dot dot = map.getDot(location);
             dot.printInfo();

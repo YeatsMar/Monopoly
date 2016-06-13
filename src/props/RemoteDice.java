@@ -19,11 +19,11 @@ public class RemoteDice extends Prop {
     @Override
     public boolean function(Player player) {
         int n = IO.getInt("请输入想要前进的步数:1-6");
-        while (n < 1 || n > 6) {
-            IO.warning();
-            n = IO.getInt("请输入想要前进的步数:1-6");
+        if (n < 1 || n > 6) {
+            return false;
         }
+        IO.showMessage(player.getName()+"使用了"+name+"!");
         function(n, player);
-        return false;
+        return true;
     }
 }

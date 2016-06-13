@@ -28,6 +28,10 @@ public class Dicelistener extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        //reset
+        player = Game.curPlayer;
+        step = (int) (Math.random()*6) +1;
+        //create view
         JFrame frame = new JFrame();
         frame.setTitle("掷骰子");
         frame.setSize(200, 200);
@@ -79,7 +83,6 @@ public class Dicelistener extends JFrame implements ActionListener {
                 else if (i == 13) {
                     ((Timer) e.getSource()).stop();
                     player.go(step);
-                    player.game.next();
                 }
                 repaint();
             }

@@ -23,13 +23,11 @@ public class MiddlePanel extends JPanel {
     }
 
     public void refresh() {
-//        gamePanel.refresh();
-        remove(gamePanel);
-        gamePanel = new GamePanel(game);
-        add(gamePanel, BorderLayout.WEST);
-        remove(informationPanel);
-        informationPanel = new InformationPanel(game);
-        add(informationPanel, BorderLayout.EAST);
+        gamePanel.refresh();
+//        remove(gamePanel);
+//        gamePanel = new GamePanel(game);
+//        add(gamePanel, BorderLayout.WEST);
+        informationPanel.refresh();
     }
 
 }

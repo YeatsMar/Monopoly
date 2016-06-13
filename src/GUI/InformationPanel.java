@@ -26,8 +26,7 @@ public class InformationPanel extends JPanel{
     }
 
     public void refresh() {
-        remove(propertyPanel);
-        propertyPanel = new PropertyMessage(game.curPlayer);
-        add(propertyPanel);
+        datePanel.repaint();
+        propertyPanel.refresh();
     }
 }

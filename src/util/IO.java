@@ -9,46 +9,42 @@ import javax.swing.*;
  */
 public class IO {
     public static int getInt(String instruction) {
-        boolean continueInput = true;
         int result = 0;
-        do {
-            try {
-                String s = JOptionPane.showInputDialog(instruction);
-                result = Integer.parseInt(s);
-                continueInput = false;
-            } catch (Exception e) {
+        String s = null;
+        try {
+            s = JOptionPane.showInputDialog(instruction);
+            result = Integer.parseInt(s);
+        } catch (Exception e) {
+            if (s.length() != 0) {
                 warning();
             }
-        } while (continueInput);
+        }
         return result;
     }
 
     public static double getDouble(String instruction) {
-        boolean continueInput = true;
         double result = 0;
-        do {
-            try {
-                String s = JOptionPane.showInputDialog(instruction);
-                result = Double.parseDouble(s);
-                continueInput = false;
-            } catch (Exception e) {
+        String s = null;
+        try {
+            s = JOptionPane.showInputDialog(instruction);
+            result = Double.parseDouble(s);
+        } catch (Exception e) {
+            if (s.length() != 0) {
                 warning();
             }
-        } while (continueInput);
+        }
         return result;
     }
 
     public static String getString(String instruction) {
-        boolean continueInput = true;
         String result = null;
-        do {
-            try {
-                result = JOptionPane.showInputDialog(instruction);
-                continueInput = false;
-            } catch (Exception e) {
+        try {
+            result = JOptionPane.showInputDialog(instruction);
+        } catch (Exception e) {
+            if (result.length() != 0) {
                 warning();
             }
-        } while (continueInput);
+        }
         return result;
     }
 
@@ -76,7 +72,7 @@ public class IO {
     }
 
     public static void print(String s) {
-//        TextMessage.text.append(s);
-        TextMessage.text.setText(s);
+        TextMessage.text.append(s + "\n");
+//        TextMessage.text.setText(s);
     }
 }

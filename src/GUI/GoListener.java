@@ -17,10 +17,12 @@ import java.awt.event.ActionListener;
 public class GoListener implements ActionListener {
     private int step;
     private Player player;
+    private Game game;
 
     public GoListener(int step, Player player) {
         this.step = step;
         this.player = player;
+        this.game = player.game;
     }
 
     @Override
@@ -28,20 +30,24 @@ public class GoListener implements ActionListener {
         int l = player.getLocation();
         if (step > 0) {
             l = Calculation.calculateLocation(l, player.getDirection());
-            Dot dot = Game.map.getDot(l);
+            Dot dot = game.map.getDot(l);
             if (dot.isBlocked()) {
                 IO.print("遇到路障!");
                 ((Timer) e.getSource()).stop();
+                player.setLocation(l);
+                dot.event(player);
+                player.game.next();
                 return;
             } else if (dot instanceof BankDot && step != 1) {
                 IO.print("途经银行可顺道办理业务~");
             }
-            player.setLocation(l);//invoke event here
+            player.setLocation(l);
             step--;
         } else {
             ((Timer) e.getSource()).stop();
-            Dot dot = Game.map.getDot(l);
+            Dot dot = game.map.getDot(l);
             dot.event(player);
+            player.game.next();
         }
     }
 }

@@ -2,17 +2,15 @@ package dots;
 
 import main.Game;
 import main.Player;
-import util.*;
+import util.IO;
 
 import javax.swing.*;
-import javax.swing.Icon;
 import java.util.ArrayList;
-import java.util.Collection;
 
 /**
  * Created by mayezhou on 16/4/7.
  */
-public abstract class Dot extends JLabel{
+public abstract class Dot extends JLabel {
     protected int x;
     protected int y;    //location
     protected int id;
@@ -31,7 +29,7 @@ public abstract class Dot extends JLabel{
     public abstract void event(Player player);
 
     public void printInfo() {
-        IO.warning("类型：");
+        IO.warning("类型："+info);
     }
 
     public boolean isAccessible() {
@@ -66,8 +64,12 @@ public abstract class Dot extends JLabel{
         return symbol;
     }
 
+    public void setSymbol(String symbol) {
+        this.symbol = symbol;
+    }
+
     public String toTextual() {
-        return players.stream().map(item->item.getSymbol()).findFirst().orElse(symbol);
+        return players.stream().map(item -> item.getSymbol()).findFirst().orElse(symbol);
     }
 
     public String toOriginalTextual() {
@@ -80,10 +82,6 @@ public abstract class Dot extends JLabel{
             default:
                 return symbol;
         }
-    }
-
-    public void setSymbol(String symbol) {
-        this.symbol = symbol;
     }
 
     public void removePlayer(Player player) {
@@ -103,7 +101,9 @@ public abstract class Dot extends JLabel{
     @Override
     public Icon getIcon() {
         if (hasPlayer()) {
-            return players.get(players.size()-1).icon;
+            return players.get(0).icon;
+        } else if (blocked) {
+            return util.Icon.barricade;
         } else {
             return super.getIcon();
         }
@@ -116,6 +116,6 @@ public abstract class Dot extends JLabel{
     public void setBlocked(boolean blocked, Game game) {
         this.blocked = blocked;
         setIcon(util.Icon.barricade);
-        game.observer.refresh();
+        game.notifyObserver();
     }
 }
