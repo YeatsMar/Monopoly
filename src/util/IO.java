@@ -15,12 +15,12 @@ import java.awt.event.ActionListener;
 public class IO {
     public static int getInt(String instruction) {
         int result = 0;
-        String s = null;
+        String s = "";
         try {
             s = JOptionPane.showInputDialog(instruction);
             result = Integer.parseInt(s);
         } catch (Exception e) {
-            if (s.length() != 0) {
+            if (s != null && s.length() != 0) {
                 warning();
             }
         }
@@ -29,12 +29,12 @@ public class IO {
 
     public static double getDouble(String instruction) {
         double result = 0;
-        String s = null;
+        String s = "";
         try {
             s = JOptionPane.showInputDialog(instruction);
             result = Double.parseDouble(s);
         } catch (Exception e) {
-            if (s.length() != 0) {
+            if (s != null && s.length() != 0) {
                 warning();
             }
         }
@@ -42,11 +42,11 @@ public class IO {
     }
 
     public static String getString(String instruction) {
-        String result = null;
+        String result = "";
         try {
             result = JOptionPane.showInputDialog(instruction);
         } catch (Exception e) {
-            if (result.length() != 0) {
+            if (result != null && result.length() != 0) {
                 warning();
             }
         }

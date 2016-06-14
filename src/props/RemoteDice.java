@@ -1,7 +1,10 @@
 package props;
 
 import main.Player;
-import util.IO;
+import util.*;
+import util.Icon;
+
+import javax.swing.*;
 
 /**
  * Created by mayezhou on 16/4/8.
@@ -18,10 +21,9 @@ public class RemoteDice extends Prop {
 
     @Override
     public boolean function(Player player) {
-        int n = IO.getInt("请输入想要前进的步数:1-6");
-        if (n < 1 || n > 6) {
-            return false;
-        }
+        Object[] items = {1,2,3,4,5,6};
+        int n = (int) JOptionPane.showInputDialog(null, "请输入你想要前进的步数", "遥控骰子",
+                JOptionPane.PLAIN_MESSAGE, Icon.diceIcon2, items, 1);
         IO.showMessage(player.getName()+"使用了"+name+"!");
         function(n, player);
         return true;

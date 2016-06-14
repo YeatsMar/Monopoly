@@ -32,6 +32,12 @@ public class Icon {
 		playerIcon[3] = player3Icon;
 	}
 
+	//dice
+	public static ImageIcon mapDiceIcon = getImageIcon("icons/dice.png",
+			200, 200);
+	public static ImageIcon diceIcon2 = getImageIcon("icons/dice.png",
+			DEFAULT_DOT_WIDTH, DEFAULT_DOT_HEIGHT);
+
 	// dot
 	public static ImageIcon noownerIcon = getImageIcon("icons/noowner0.png",
 			DEFAULT_DOT_WIDTH, DEFAULT_DOT_HEIGHT);
@@ -54,8 +60,6 @@ public class Icon {
 			DEFAULT_DOT_WIDTH, DEFAULT_DOT_HEIGHT);
 	public static ImageIcon newsIcon = getImageIcon("icons/news.png",
 			DEFAULT_DOT_WIDTH, DEFAULT_DOT_HEIGHT);
-	public static ImageIcon mapDiceIcon = getImageIcon("icons/dice.png",
-			200, 200);
 	public static ImageIcon hospital = getImageIcon("icons/hospital.png",
 			DEFAULT_DOT_WIDTH, DEFAULT_DOT_HEIGHT);
 	static {

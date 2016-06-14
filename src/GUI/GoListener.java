@@ -40,6 +40,8 @@ public class GoListener implements ActionListener {
                 return;
             } else if (dot instanceof BankDot && step != 1) {
                 IO.print("途经银行可顺道办理业务~");
+                player.setLocation(l);
+                dot.event(player);
             }
             player.setLocation(l);
             step--;

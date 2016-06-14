@@ -124,9 +124,9 @@ public class Game {
             newRound();
         } else {
             curPlayer = players[playerID];
-        }
-        if (curPlayer.isBankrupt()) {
-            next();
+            if (curPlayer.isBankrupt()) {
+                next();
+            }
         }
         notifyObserver();
         IO.print("\n\n\n");
@@ -139,6 +139,9 @@ public class Game {
         if (tbc()) {
             playerID = 0;
             curPlayer = players[playerID];
+            if (curPlayer.isBankrupt()) {
+                next();
+            }
             date.addDate();
             if (date.isWeekday()) {
                 stockMarket.update();
