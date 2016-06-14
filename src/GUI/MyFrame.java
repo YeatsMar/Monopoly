@@ -31,7 +31,7 @@ public class MyFrame extends JFrame implements Observer{
         mainPanel.add(endPanel, "third");
         container.add(mainPanel);
         this.setTitle("大富翁");
-        this.setSize(1074, 720);
+        this.setSize(1150, 720);
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);

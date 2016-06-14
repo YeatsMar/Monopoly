@@ -58,10 +58,16 @@ public class PropsFrame extends JFrame {
     }
 
     public class PropbuyingListener implements ActionListener {
+        private PropsFrame frame;
+
+        public PropbuyingListener(PropsFrame frame) {
+            this.frame = frame;
+        }
+
         @Override
         public void actionPerformed(ActionEvent e) {
             int card;
-            for (card = 0; card < 5; card++) {
+            for (card = 0; card < 7; card++) {
                 if (cards[card] == e.getSource()) {
                     break;
                 }
@@ -75,6 +81,7 @@ public class PropsFrame extends JFrame {
                 player.addCard(card, n);
                 player.setTicketPoint(player.getTicketPoint() - 3 * n);
                 IO.print("玩家" + player.getName() + "成功购买" + Prop.names[card] + n + "张");
+                frame.label.setText("欢迎来到道具店,三张点券购买一张道具卡，当前您的点券数：" + player.getTicketPoint());
             } else {
                 IO.print("点券不足,本次购买失败");
             }
@@ -91,7 +98,7 @@ public class PropsFrame extends JFrame {
         @Override
         public void actionPerformed(ActionEvent e) {
             int card;
-            for (card = 0; card < 5; card++) {
+            for (card = 0; card < 7; card++) {
                 if (cards[card] == e.getSource()) {
                     break;
                 }

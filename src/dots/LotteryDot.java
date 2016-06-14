@@ -21,26 +21,21 @@ public class LotteryDot extends Dot{
     @Override
     public void event(Player player) {
         IO.print(player.getName()+"到达"+getInfo());
-        String s = IO.getString("刮刮乐售卖中,是否购买彩票?\tY/N\n彩票200元,中奖概率10%,奖金2000元~");
-        while (!s.equals("Y") && !s.equals("N")) {
-            IO.warning();
-            s = IO.getString("请输入Y/N(大写):");
-        }
-        if (s.equals("Y")) {
+        if (IO.yORn("彩票售卖", "刮刮乐售卖中,是否购买彩票?\n彩票200元,中奖概率10%,奖金2000元~")) {
             if (player.getCash() >= 200) {
                 player.addCash(-200);
                 if (new Random().nextInt(9) < 1) {//10%
-                    System.out.println("恭喜中奖!获得2000元奖金");
+                    IO.print("恭喜中奖!获得2000元奖金");
                     player.addCash(2000);
                     player.printProperty();
                 } else {
-                    System.out.println("很遗憾本次没有中奖,希望下次有料");
+                    IO.print("很遗憾本次没有中奖,希望下次有料");
                 }
             } else {
-                System.out.println("现金不足,无法购买");
+                IO.print("现金不足,无法购买");
             }
         } else {
-            System.out.println(player.getName()+"放弃购买彩票");
+            IO.print(player.getName()+"放弃购买彩票");
         }
     }
 }

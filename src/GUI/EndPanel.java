@@ -12,6 +12,10 @@ public class EndPanel extends JPanel {
     private Image BGP = new ImageIcon("wallpaper/2.jpg").getImage();
     private String s;
 
+    public EndPanel() {
+        setFont(new Font("Californian FB", Font.BOLD, 20));
+    }
+
     public void setWinner(String s) {
         this.s = s;
     }
@@ -19,6 +23,6 @@ public class EndPanel extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         g.drawImage(BGP, 0, 0, getWidth(), getHeight(), this);
-        g.drawString(s, 260, 73);
+        g.drawString(s, 230, 440);
     }
 }

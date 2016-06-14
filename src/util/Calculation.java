@@ -20,6 +20,16 @@ public class Calculation {
         return location;
     }
 
+    public static int calculateLocation(int location) {
+        int max = Game.map.getDots().size();
+        if (location >= max) {
+            location -= max;
+        } else if (location < 0) {
+            location += max;
+        }
+        return location;
+    }
+
     public static int relativeDistance(int playerID0, int playerID1) {
         Player player0 = Game.players[playerID0];
         Player player1 = Game.players[playerID1];

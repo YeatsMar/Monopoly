@@ -72,6 +72,7 @@ public class GamePanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 player.setBankrupt(true);
+                IO.print(player.getName()+"弃权_(:зゝ∠)_");
                 game.next();
             }
         });
@@ -100,6 +101,7 @@ public class GamePanel extends JPanel {
 
     public void refresh() {
         this.player = game.curPlayer;
+        setWarning();
         map.repaint();
     }
 }

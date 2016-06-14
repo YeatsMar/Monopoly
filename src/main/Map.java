@@ -3,6 +3,7 @@ package main;
 import dots.Dot;
 import dots.Estate;
 import util.DotFactory;
+import util.IO;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -91,7 +92,7 @@ public class Map {
             }
             sb.append("\n");
         }
-        System.out.println(sb);
+        IO.print(sb.toString());
     }
 
     public void printInitial() {
@@ -102,6 +103,6 @@ public class Map {
             }
             sb.append("\n");
         }
-        System.out.println(sb);
+        IO.print(sb.toString());
     }
 }

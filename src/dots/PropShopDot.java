@@ -22,7 +22,7 @@ public class PropShopDot extends Dot{
     public void event(Player player) {
         IO.print(player.getName()+"到达"+getInfo());
         PropsFrame frame = new PropsFrame(player);
-        PropbuyingListener listener = frame.new PropbuyingListener();
+        PropbuyingListener listener = frame.new PropbuyingListener(frame);
         frame.setListener(listener);
         frame.setLabel("欢迎来到道具店,三张点券购买一张道具卡，当前您的点券数：" + player.getTicketPoint());
     }

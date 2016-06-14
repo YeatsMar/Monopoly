@@ -3,8 +3,8 @@ package dots;
 import main.Player;
 import main.Street;
 import util.Calculation;
-import util.Icon;
 import util.IO;
+import util.Icon;
 
 /**
  * Created by mayezhou on 16/4/7.
@@ -29,7 +29,7 @@ public class Estate extends Dot {
 
     @Override
     public void event(Player player) {
-        IO.print(player.getName()+"到达"+getInfo());
+        IO.print(player.getName() + "到达" + getInfo());
         switch (symbol) {
             case "◎ "://no owner
                 buy(player);
@@ -50,16 +50,16 @@ public class Estate extends Dot {
     private void toll(Player player) {
         double toll = getPrice() * 0.3 + getStreetBonus();
         toll = Calculation.roundUpDouble(toll);
-        System.out.println("此处为" + owner.getName() + "的房产,需要支付过路费" + toll + "元");
+        IO.print("此处为" + owner.getName() + "的房产,需要支付过路费" + toll + "元");
         if (player.getCash() >= toll) {
             player.addCash(-toll);
-            System.out.println("扣除现金");
+            IO.print("扣除现金");
         } else if (player.getDeposit() >= toll - player.getCash()) {
-            System.out.println("现金不足,剩余部分交付存款");
+            IO.print("现金不足,剩余部分交付存款");
             player.setCash(0);
             player.addDeposit(-(toll - player.getCash()));
         } else {
-            System.out.println("现金、存款均不足，依照土地编号顺序卖房抵债");
+            IO.print("现金、存款均不足，依照土地编号顺序卖房抵债");
             double remaining = toll - player.getDeposit() - player.getCash();
             player.setDeposit(0);
             player.setCash(0);
@@ -71,7 +71,7 @@ public class Estate extends Dot {
             }
             player.addCash(-remaining);
             if (player.getCash() < 0) {
-                System.out.println(player.getName() + "始终无法交付全部过路费,已破产,将其全部财产给予" + owner.getName() + ", " +
+                IO.print(player.getName() + "始终无法交付全部过路费,已破产,将其全部财产给予" + owner.getName() + ", " +
                         owner.getName() + "仅得部分过路费");
                 owner.addCash(toll + player.getCash());
             }
@@ -97,37 +97,49 @@ public class Estate extends Dot {
         owner.addCash(getPrice());
         symbol = "◎ ";
         owner = null;
+        setIcon();
+    }
+
+    private void setIcon() {
+        switch (symbol) {
+            case "◎ ":
+                this.setIcon(Icon.noownerIcon);
+                break;
+            case "○ "://0's
+                this.setIcon(Icon.ownerAIcon[level]);
+                break;
+            case "● "://1
+                this.setIcon(Icon.ownerBIcon[level]);
+                break;
+            case "□ "://2
+                this.setIcon(Icon.ownerCIcon[level]);
+                break;
+            case "■ "://3
+                this.setIcon(Icon.ownerDIcon[level]);
+                break;
+        }
+        owner.game.notifyObserver();
     }
 
     private void levelUp() {
-        String s = IO.getString("该地为您的土地，请问是否选择升级？升级需花费100元\tY/N");
-        s = s.toUpperCase();
-        while (!s.equals("Y") && !s.equals("N")) {
-            IO.warning();
-            s = IO.getString("该地为您的土地，请问是否选择升级？升级需花费100元\tY/N");
-        }
-        if (s.equals("Y")) {
+        if (IO.yORn("土地升级", "该地为您的土地，请问是否选择升级？升级需花费100元")) {
             if (owner.getCash() >= 100) {
                 if (level < 6) {
                     level++;
-                    System.out.println("土地升级成功,当前等级为" + level);
+                    IO.print("土地升级成功,当前等级为" + level);
                 } else {
-                    System.out.println("土地已满级_(:з╂∠)_");
+                    IO.print("土地已满级_(:з╂∠)_");
                 }
                 owner.addCash(-100);
             } else {
-                System.out.println("现金不足,升级失败");
+                IO.print("现金不足,升级失败");
             }
         }
+        setIcon();
     }
 
     private void buy(Player player) {
-        String s = IO.getString("是否购买土地?需用现金支付200元\tY/N");
-        while (!s.equals("Y") && !s.equals("N")) {
-            IO.warning();
-            s = IO.getString("请输入Y/N(大写)");
-        }
-        if (s.equals("Y")) {
+        if (IO.yORn("买房", "是否购买土地?需用现金支付200元")) {
             if (player.getCash() >= getPrice()) {
                 owner = player;
                 switch (player.getPlayerID()) {
@@ -149,14 +161,15 @@ public class Estate extends Dot {
                         break;
                 }
                 player.setCash(player.getCash() - getPrice());
-                System.out.println("玩家" + player.getName() + "购买土地成功~");
+                IO.print("玩家" + player.getName() + "购买土地成功~");
                 player.printProperty();
             } else {
-                System.out.println("没钱买什么地_(:з╂∠)_");
+                IO.print("没钱买什么地_(:з╂∠)_");
             }
         } else {
-            System.out.println("居然不买地_(:зゝ∠)_");
+            IO.print("居然不买地_(:зゝ∠)_");
         }
+        setIcon();
     }
 
     @Override
@@ -186,6 +199,7 @@ public class Estate extends Dot {
 
     public void setLevel(int level) {
         this.level = level;
+        setIcon();
     }
 
     public Street getStreet() {

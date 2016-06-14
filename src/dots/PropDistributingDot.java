@@ -21,7 +21,7 @@ public class PropDistributingDot extends Dot{
     public void event(Player player) {
         IO.print(player.getName()+"到达"+getInfo());
         int random = (int) Math.random() * 5;
-        System.out.println("随机获得道具卡" + Prop.names[random] + "一张");
+        IO.print("随机获得道具卡" + Prop.names[random] + "一张");
         player.addCard(random, 1);
     }
 }

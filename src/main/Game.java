@@ -64,14 +64,14 @@ public class Game {
 
     public String showWarning(Player player) {
         String warning = null;
-        int startLocation = player.getLocation() + 1;
-        int endLocation = player.getLocation() + 10;
+        int l = player.getLocation();
         boolean noBlock = true;
-        for (int location = startLocation; location <= endLocation; location++) {
-            if (map.getDot(location).isBlocked()) {
-                int step = location - startLocation + 1;
-                warning = "前方" + step + "步有路障";
+        for (int i = 0; i < 10; i++) {
+            l += player.getDirection();
+            if (map.getDot(Calculation.calculateLocation(l)).isBlocked()) {
                 noBlock = false;
+                int step = Math.abs(l - player.getLocation());
+                warning = "前方" + step + "步有路障";
                 break;
             }
         }
@@ -109,8 +109,8 @@ public class Game {
     }
 
     public void start() {
-        for (Player player:
-             players) {
+        for (Player player :
+                players) {
             (map.getDots().get(player.getLocation())).addPlayer(player);
         }
         date.print();
@@ -125,7 +125,11 @@ public class Game {
         } else {
             curPlayer = players[playerID];
         }
+        if (curPlayer.isBankrupt()) {
+            next();
+        }
         notifyObserver();
+        IO.print("\n\n\n");
         date.print();
         IO.print("现在是" + curPlayer.getName() + "的操作时间，您的前进方向是"
                 + curPlayer.getDirectionString() + "。");

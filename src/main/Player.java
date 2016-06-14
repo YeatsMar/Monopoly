@@ -39,7 +39,7 @@ public class Player {
         this.cash = cash;
         this.deposit = deposit;
         this.playerID = playerID;
-        setIcon();
+        this.icon = Icon.playerIcon[playerID];
         this.direction = direction;
         this.ticketPoint = ticketPoint;
         this.healthy = healthy;
@@ -60,7 +60,7 @@ public class Player {
         this.cash = cash;
         this.deposit = deposit;
         this.playerID = playerID;
-        setIcon();
+        this.icon = Icon.playerIcon[playerID];
         this.direction = direction;
         this.ticketPoint = ticketPoint;
         this.healthy = true;
@@ -72,23 +72,6 @@ public class Player {
         stockAmout = new int[game.stockMarket.getNum()];
         for (int i = 0; i < stockAmout.length; i++) {
             stockAmout[i] = 0;
-        }
-    }
-
-    private void setIcon() {
-        switch (playerID) {
-            case 0:
-                icon = Icon.player0Icon;
-                break;
-            case 1:
-                icon = Icon.player1Icon;
-                break;
-            case  2:
-                icon = Icon.player2Icon;
-                break;
-            case  3:
-                icon = Icon.player3Icon;
-                break;
         }
     }
 

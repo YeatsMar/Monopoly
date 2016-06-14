@@ -20,6 +20,6 @@ public class TicketDot extends Dot{
     public void event(Player player) {
         IO.print(player.getName()+"到达"+getInfo());
         player.setTicketPoint(player.getTicketPoint()+1);
-        System.out.println("获得点券1张");
+        IO.print("获得点券1张");
     }
 }

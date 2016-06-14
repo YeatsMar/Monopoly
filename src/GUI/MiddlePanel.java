@@ -24,9 +24,6 @@ public class MiddlePanel extends JPanel {
 
     public void refresh() {
         gamePanel.refresh();
-//        remove(gamePanel);
-//        gamePanel = new GamePanel(game);
-//        add(gamePanel, BorderLayout.WEST);
         informationPanel.refresh();
     }
 

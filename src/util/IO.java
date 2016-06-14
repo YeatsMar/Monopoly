@@ -1,8 +1,13 @@
 package util;
 
 import GUI.TextMessage;
+import main.Game;
+import main.Player;
 
 import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  * Created by mayezhou on 16/4/8.
@@ -66,6 +71,15 @@ public class IO {
         return result;
     }
 
+    public static boolean yORn(String title, String message) {
+        int reply = JOptionPane.showConfirmDialog(null, message, title, JOptionPane.YES_NO_OPTION);
+        if (reply == JOptionPane.YES_OPTION) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public static void showMessage(String s) {
         warning(s);
         print(s);
@@ -73,6 +87,5 @@ public class IO {
 
     public static void print(String s) {
         TextMessage.text.append(s + "\n");
-//        TextMessage.text.setText(s);
     }
 }

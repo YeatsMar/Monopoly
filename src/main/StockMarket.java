@@ -38,15 +38,16 @@ public class StockMarket {
 
     public void enter(Date date, Player player) {
         if (!date.isWeekday()) {
-            System.out.println("双休日股市休市_(:зゝ∠)_");
+            IO.print("双休日股市休市_(:зゝ∠)_");
         } else {
             for (int i = 0; i < 10; i++) {
-                System.out.println(stocks[i].getInfo()+"持有数:"+player.getStockAmout()[i]);
+                IO.print(stocks[i].getInfo()+"持有数:"+player.getStockAmout()[i]);
             }
             boolean ct = true;
             do {
+                // TODO: 16/6/13 bug
                 String input = IO.getString("输入b x n表示买入序号为x的股票n股, s x n 表示卖出序号为x的股票n股, q离开股市");
-                System.out.println("仅用一个空格隔开, x和n均为数字");
+                IO.print("仅用一个空格隔开, x和n均为数字");
                 String[] inputs = input.split(" ");
                 if (inputs.length == 3
                         && (inputs[0].equals("b") || inputs[0].equals("s"))
@@ -70,29 +71,29 @@ public class StockMarket {
 
     private void buy(Player player, int x, int n) {
         if (x < 0 || x >= num) {
-            System.out.println("不存在改种股票,请输入正确的序号!");
+            IO.print("不存在改种股票,请输入正确的序号!");
             return;
         }
         if (n < 0) {
-            System.out.println("购买股数不可为负!");
+            IO.print("购买股数不可为负!");
             IO.warning();
             return;
         }
         double cost = n * stocks[x].getPrice();
         if (cost > player.getDeposit()) {
-            System.out.println("存款余额不足,将扣除现金");
+            IO.print("存款余额不足,将扣除现金");
             if (cost-player.getDeposit() > player.getCash()) {
-                System.out.println("现金余额不足,本次购买操作失败");
+                IO.print("现金余额不足,本次购买操作失败");
                 player.printProperty();
             } else {
-                System.out.println("成功买入股票"+x+" "+n+"股");
+                IO.print("成功买入股票"+x+" "+n+"股");
                 player.setDeposit(0);
                 player.setCash(player.getCash() - (cost-player.getDeposit()));
                 player.getStockAmout()[x] += n;
                 player.printProperty();
             }
         } else {
-            System.out.println("成功买入股票"+x+" "+n+"股");
+            IO.print("成功买入股票"+x+" "+n+"股");
             player.setDeposit(player.getDeposit() - cost);
             player.getStockAmout()[x] += n;
             player.printProperty();
@@ -101,18 +102,18 @@ public class StockMarket {
 
     private void sell(Player player, int x, int n) {
         if (x < 0 || x >= num) {
-            System.out.println("不存在改种股票,请输入正确的序号!");
+            IO.print("不存在改种股票,请输入正确的序号!");
             return;
         }
         if (n < 0) {
-            System.out.println("股数不可为负!");
+            IO.print("股数不可为负!");
             IO.warning();
             return;
         }
         if (player.getStockAmout()[x] < n) {
-            System.out.println("所持股票数量不足,本次操作失败");
+            IO.print("所持股票数量不足,本次操作失败");
         } else {
-            System.out.println("成功卖出股票"+x+" "+n+"股");
+            IO.print("成功卖出股票"+x+" "+n+"股");
             player.getStockAmout()[x]  -= n;
             player.setDeposit(player.getDeposit()+n*stocks[x].getPrice());
             player.printProperty();

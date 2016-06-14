@@ -1,9 +1,13 @@
 package props;
 
+import GUI.ChoosePlayerFrame;
 import main.Game;
 import main.Player;
 import util.Calculation;
 import util.IO;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  * Created by mayezhou on 16/4/8.
@@ -14,29 +18,43 @@ public class Tax extends Prop {
         id = 6;
     }
 
-    public void function(Player user, int playerID) {
+    private void function(Player user, int playerID) {
         Player p = user.game.players[playerID];
         if (Calculation.relativeDistance(user.getPlayerID(), playerID) <= 5) {
             p.setDeposit(p.getDeposit() * 0.7);
-            System.out.println("扣除"+p.getName()+"存款30%");
+            IO.print(user.getName()+"对"+p.getName()+"使用了查税卡!");
+            IO.print("扣除"+p.getName()+"存款30%");
         } else {
-            System.out.println("该玩家距离您五步开外,不能对其使用查税卡");
+            IO.warning("该玩家距离您五步开外,不能对其使用查税卡");
         }
     }
 
     @Override
     public boolean function(Player player) {
-        Game game = player.game;
-        int playerID = IO.getInt("请输入要控制的玩家ID\t0-"+(game.getPlayern()-1));
-        while (playerID < 0 || playerID >= game.getPlayern()) {
-            IO.warning();
-            playerID = IO.getInt("请输入要控制的玩家ID\t0-"+(game.getPlayern()-1));
+        ChoosePlayerFrame frame = new ChoosePlayerFrame(player.getPlayerID());
+        TaxListener listener = new TaxListener(frame, player);
+        frame.registerListener(listener);
+        return true;
+    }
+
+    private class TaxListener implements ActionListener {
+        private ChoosePlayerFrame frame;
+        private Player player;
+
+        public TaxListener(ChoosePlayerFrame frame, Player player) {
+            this.frame = frame;
+            this.player = player;
         }
-        while (playerID == player.getPlayerID()) {
-            System.out.println("只能对对手使用_(:зゝ∠)_");
-            playerID = IO.getInt("请输入要控制的玩家ID\t0-"+(game.getPlayern()-1));
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            int id;
+            for (id = 0; id < Game.players.length; id++) {
+                if (e.getSource() == frame.playerBtns[id]) {
+                    function(player, id);
+                    frame.dispose();
+                    break;
+                }
+            }
         }
-        function(player, playerID);
-        return false;
     }
 }

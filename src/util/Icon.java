@@ -13,15 +13,10 @@ public class Icon {
 	public static final int DEFAULT_START_BUTTON_HEIGHT = 157;
 	public static final int DEFAULT_GAME_BUTTON_WIDTH = 86;
 	public static final int DEFAULT_GAME_BUTTON_HEIGHT = 27;
-	
 
-	// dot
-	public static ImageIcon noownerIcon = getImageIcon("icons/noowner0.png",
-			DEFAULT_DOT_WIDTH, DEFAULT_DOT_HEIGHT);
-	public static ImageIcon[] ownerAIcon = new ImageIcon[6];
-	public static ImageIcon[] ownerBIcon = new ImageIcon[6];
-	public static ImageIcon[] ownerCIcon = new ImageIcon[6];
-	public static ImageIcon[] ownerDIcon = new ImageIcon[6];
+
+	//player
+	public static ImageIcon[] playerIcon = new ImageIcon[4];
 	public static ImageIcon player0Icon = getImageIcon("icons/ava1.jpg",
 			DEFAULT_DOT_WIDTH, DEFAULT_DOT_HEIGHT);
 	public static ImageIcon player1Icon = getImageIcon("icons/ava2.jpg",
@@ -30,6 +25,20 @@ public class Icon {
 			DEFAULT_DOT_WIDTH, DEFAULT_DOT_HEIGHT);
 	public static ImageIcon player3Icon = getImageIcon("icons/ava4.png",
 			DEFAULT_DOT_WIDTH, DEFAULT_DOT_HEIGHT);
+	static {
+		playerIcon[0] = player0Icon;
+		playerIcon[1] = player1Icon;
+		playerIcon[2] = player2Icon;
+		playerIcon[3] = player3Icon;
+	}
+
+	// dot
+	public static ImageIcon noownerIcon = getImageIcon("icons/noowner0.png",
+			DEFAULT_DOT_WIDTH, DEFAULT_DOT_HEIGHT);
+	public static ImageIcon[] ownerAIcon = new ImageIcon[6];
+	public static ImageIcon[] ownerBIcon = new ImageIcon[6];
+	public static ImageIcon[] ownerCIcon = new ImageIcon[6];
+	public static ImageIcon[] ownerDIcon = new ImageIcon[6];
 	public static ImageIcon bankIcon = getImageIcon("icons/bank.png",
 			DEFAULT_DOT_WIDTH, DEFAULT_DOT_HEIGHT);
 	public static ImageIcon cardIcon = getImageIcon("icons/gift.png",
