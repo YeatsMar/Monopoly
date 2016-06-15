@@ -163,13 +163,13 @@ public class Estate extends Dot {
                 player.setCash(player.getCash() - getPrice());
                 IO.print("玩家" + player.getName() + "购买土地成功~");
                 player.printProperty();
+                setIcon();
             } else {
                 IO.print("没钱买什么地_(:з╂∠)_");
             }
         } else {
             IO.print("居然不买地_(:зゝ∠)_");
         }
-        setIcon();
     }
 
     @Override

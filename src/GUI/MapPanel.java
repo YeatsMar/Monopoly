@@ -11,7 +11,7 @@ import java.awt.*;
  * Created by mayezhou on 16/6/1.
  */
 public class MapPanel extends JPanel {
-    private Image BGP = new ImageIcon("wallpaper/timeBGP.jpg").getImage();
+    private Image BGP = new ImageIcon(getClass().getResource("/wallpaper/timeBGP.jpg")).getImage();
     private Map map;
     private JButton dice;
 

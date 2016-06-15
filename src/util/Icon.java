@@ -1,8 +1,23 @@
 package util;
 
 import java.awt.Image;
+import java.io.InputStream;
+import java.net.URL;
 
 import javax.swing.ImageIcon;
+class IconClassLoader{
+	private static IconClassLoader instance;
+	private static IconClassLoader getInstance(){
+		if (instance == null) instance = new IconClassLoader();
+		return instance;
+	}
+	public static URL getResource(String filename){
+		return getInstance().getClass().getResource(filename);
+	}
+	public static InputStream getResourceAsStream(String filename){
+		return getInstance().getClass().getResourceAsStream(filename);
+	}
+}
 
 public class Icon {
 	public static final int DEFAULT_DOT_WIDTH = 45;
@@ -84,11 +99,7 @@ public class Icon {
 	//Start Button
 	public static ImageIcon newStart = getImageIcon("icons/start.png", DEFAULT_START_BUTTON_WIDTH,
 			DEFAULT_START_BUTTON_HEIGHT);
-	public static ImageIcon continueGame = getImageIcon("icons/Continue.png",
-			DEFAULT_START_BUTTON_WIDTH, DEFAULT_START_BUTTON_HEIGHT);
 	public static ImageIcon newStart2 = getImageIcon("icons/start2.png",
-			DEFAULT_START_BUTTON_WIDTH, DEFAULT_START_BUTTON_HEIGHT);
-	public static ImageIcon continueGame2 = getImageIcon("icons/Continue2.png",
 			DEFAULT_START_BUTTON_WIDTH, DEFAULT_START_BUTTON_HEIGHT);
 
 	//card
@@ -108,7 +119,7 @@ public class Icon {
 	// get scaled image icon, a substitute for ImageIcon constructor
 	private static ImageIcon getImageIcon(String imageFilename, int width,
 			int height) {
-		ImageIcon icon = new ImageIcon(imageFilename);
+		ImageIcon icon = new ImageIcon(IconClassLoader.getResource("/"+imageFilename));
 		icon.setImage(icon.getImage().getScaledInstance(width, height,
 				Image.SCALE_SMOOTH));
 		return icon;

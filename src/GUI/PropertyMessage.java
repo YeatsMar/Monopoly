@@ -13,7 +13,7 @@ import javax.swing.border.TitledBorder;
 
 public class PropertyMessage extends JPanel {
 	private Player player;
-	private Image BGP = new ImageIcon("wallpaper/羊皮卷.jpg").getImage();
+	private Image BGP = new ImageIcon(getClass().getResource("/wallpaper/羊皮卷.jpg")).getImage();
 	private JLabel playerImage;
 	private JLabel[] labels;
 	private Font font = new Font("TimesRoman", Font.PLAIN, 12);

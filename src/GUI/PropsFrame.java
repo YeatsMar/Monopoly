@@ -1,6 +1,5 @@
 package GUI;
 
-import main.Game;
 import main.Player;
 import props.Prop;
 import util.IO;

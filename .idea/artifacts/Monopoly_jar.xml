@@ -1,0 +1,13 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Monopoly:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Monopoly_jar</output-path>
+    <root id="archive" name="Monopoly.jar">
+      <element id="module-output" name="Monopoly" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/lib/jfreechart-1.0.19.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/lib/krysalis-jCharts-1.0.0-alpha-1.jar" path-in-jar="/" />
+      <element id="dir-copy" path="$PROJECT_DIR$/res/icons" />
+      <element id="dir-copy" path="$PROJECT_DIR$/res/wallpaper" />
+      <element id="file-copy" path="$PROJECT_DIR$/res/map.txt" />
+    </root>
+  </artifact>
+</component>

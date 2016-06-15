@@ -9,7 +9,7 @@ import java.awt.*;
  * Created by mayezhou on 16/6/9.
  */
 public class EndPanel extends JPanel {
-    private Image BGP = new ImageIcon("wallpaper/2.jpg").getImage();
+    private Image BGP = new ImageIcon(getClass().getResource("/wallpaper/2.jpg")).getImage();
     private String s;
 
     public EndPanel() {

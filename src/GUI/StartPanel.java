@@ -10,7 +10,7 @@ import java.awt.event.ActionListener;
  */
 public class StartPanel extends JPanel {
     protected JButton jbtNew = new JButton(util.Icon.newStart);
-    private Image BGP = new ImageIcon("wallpaper/start.png").getImage();
+    private Image BGP = new ImageIcon(getClass().getResource("/wallpaper/start.png")).getImage();
     private MyFrame frame;
 
     public StartPanel(MyFrame frame) {

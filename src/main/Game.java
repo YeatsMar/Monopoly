@@ -25,7 +25,7 @@ public class Game {
     public Game(int number) {
         this.playern = number;
         stockMarket = new StockMarket(10);
-        map = MapFactory.build();
+        map = MapFactory.build(getClass().getResourceAsStream("/map.txt"));
         map.setStreet(this);
         date = new Date(2014, 1, 1, 1, this);
         players = new Player[number];
