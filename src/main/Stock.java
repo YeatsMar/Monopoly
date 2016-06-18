@@ -20,7 +20,7 @@ public class Stock {
         rate = 1;
         price = originalPrice * rate;
         prices = new double[5];
-        prices[4] = price;
+        prices[4] = getPrice();
     }
 
     public void saveOldPrice(double oldPrice) {

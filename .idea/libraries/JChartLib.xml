@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="JChartLib">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/JChartLib.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

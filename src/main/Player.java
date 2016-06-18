@@ -253,7 +253,11 @@ public class Player {
         game.notifyObserver();
     }
 
-    public int[] getStockAmout() {
-        return stockAmout;
+    public int getStockAmount(int i) {
+        return stockAmout[i];
+    }
+
+    public void addStockAmount(int i, int n) {
+        stockAmout[i] += n;
     }
 }
