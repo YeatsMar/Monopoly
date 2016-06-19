@@ -7,7 +7,7 @@ import javax.swing.text.DefaultCaret;
 import java.awt.*;
 
 public class TextMessage extends JPanel {
-	public static JTextArea text = new JTextArea();// TODO: observer model
+	public static JTextArea text = new JTextArea();
 	private Font font = new Font("Courier", Font.PLAIN, 10);
 
 	public TextMessage() {

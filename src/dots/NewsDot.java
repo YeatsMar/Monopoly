@@ -24,7 +24,7 @@ public class NewsDot extends Dot{
         IO.print(player.getName()+"到达"+getInfo());
         //trigger news randomly
         IO.print("现在为您播报新闻:");
-        int num = (int) (Math.random() * 6);
+        int num = (int) (Math.random() * 6);// TODO: 16/6/19 test 
         Player[] p = player.game.players;
         switch (num) {
             case 0:
@@ -96,6 +96,7 @@ public class NewsDot extends Dot{
                 IO.print(player.getName() + "突然被过路人袭击受伤,被送往医院抢救!");
                 player.setHealthy(false);
                 player.setLocation(20);
+                Game.map.getDot(20).event(player);
                 break;
         }
     }

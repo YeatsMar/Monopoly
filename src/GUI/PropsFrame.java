@@ -22,7 +22,7 @@ public class PropsFrame extends JFrame {
     public PropsFrame(Player player) {
         this.player = player;
         label = new JLabel();
-        panel = new JPanel(new GridLayout(1, 7, 20, 20));// 可以算出每张卡片的图片大小为140x200
+        panel = new JPanel(new GridLayout(2, 4, 20, 20));// 可以算出每张卡片的图片大小为140x200
         cards = new JButton[7];
         cards[0] = new JButton("均富卡（" + player.getCard(0) + "）", Icon.average);
         cards[1] = new JButton("路障（" + player.getCard(1) + "）", Icon.barrier);
@@ -35,7 +35,7 @@ public class PropsFrame extends JFrame {
                 cards) {
             panel.add(e);
         }
-        setSize(1000, 300);
+        setSize(1078, 554);
         setLayout(new BorderLayout());
         add(label, BorderLayout.NORTH);
         add(panel, BorderLayout.CENTER);

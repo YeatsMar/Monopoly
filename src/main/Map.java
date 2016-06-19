@@ -26,7 +26,7 @@ public class Map {
         }
     }
 
-    public Dot getDot(int x, int y, char symbol, int index) {// TODO: 16/6/6 Lambda: avoid adding new dots 
+    public Dot getDot(int x, int y, char symbol, int index) {
         return allDots.stream().filter(
                 item -> (item.getX() == x && item.getY() == y))
                 .findFirst().orElse(createDot(x, y, symbol, index));

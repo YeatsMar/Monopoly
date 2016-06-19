@@ -1,5 +1,6 @@
 package dots;
 
+import main.Game;
 import main.Player;
 import main.Street;
 import util.Calculation;
@@ -118,7 +119,7 @@ public class Estate extends Dot {
                 this.setIcon(Icon.ownerDIcon[level]);
                 break;
         }
-        owner.game.notifyObserver();
+        Game.notifyObserver();
     }
 
     private void levelUp() {

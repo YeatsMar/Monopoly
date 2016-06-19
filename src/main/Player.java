@@ -32,27 +32,7 @@ public class Player {
     private ArrayList<Estate> estates = new ArrayList<>();
     private int[] stockAmout;//only to record the number of each type
     private boolean bankrupt;
-
-    public Player(String name, int cash, int deposit, int playerID, int direction, int ticketPoint, boolean healthy, Game game) {
-        this.game = game;
-        this.name = name;
-        this.cash = cash;
-        this.deposit = deposit;
-        this.playerID = playerID;
-        this.icon = Icon.playerIcon[playerID];
-        this.direction = direction;
-        this.ticketPoint = ticketPoint;
-        this.healthy = healthy;
-        location = 0;
-        bankrupt = false;
-        for (int i = 0; i < card.length; i++) {
-            card[i] = 1;
-        }
-        stockAmout = new int[game.stockMarket.getNum()];
-        for (int i = 0; i < stockAmout.length; i++) {
-            stockAmout[i] = 0;
-        }
-    }
+    private int stopRound = 2;
 
     public Player(String name, int cash, int deposit, int playerID, int direction, int ticketPoint, Game game) {
         this.game = game;
@@ -64,7 +44,7 @@ public class Player {
         this.direction = direction;
         this.ticketPoint = ticketPoint;
         this.healthy = true;
-        location = 0;
+        location = 0;// TODO: 16/6/19 test:    if want to test the implementation of Hospital 19 is recommended 
         bankrupt = false;
         for (int i = 0; i < card.length; i++) {
             card[i] = 1;
@@ -73,6 +53,18 @@ public class Player {
         for (int i = 0; i < stockAmout.length; i++) {
             stockAmout[i] = 0;
         }
+    }
+
+    public int getStopRound() {
+        return stopRound;
+    }
+
+    public void updateStopRound() {
+        --stopRound;
+    }
+
+    public void resetStopRound() {
+        this.stopRound = 2;
     }
 
     public void useProp(int i) {
@@ -259,5 +251,6 @@ public class Player {
 
     public void addStockAmount(int i, int n) {
         stockAmout[i] += n;
+        game.notifyObserver();
     }
 }

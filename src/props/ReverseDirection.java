@@ -22,10 +22,14 @@ public class ReverseDirection extends Prop {
     public void function(Player player, int playerID) {
         Player p = player.game.players[playerID];
         if (Calculation.relativeDistance(player.getPlayerID(), playerID) <= 5) {
-            p.setDirection(-p.getDirection());
-            IO.print(p.getName()+"已转向!");
+            if (p.isBankrupt()) {
+                IO.print("该玩家已退出游戏_(:зゝ∠)_你平白无故浪费了一张道具卡哦~");
+            } else {
+                p.setDirection(-p.getDirection());
+                IO.print(p.getName()+"已转向!");
+            }
         } else {
-            IO.warning("该玩家距离您五步开外,不能对其使用转向卡");
+            IO.warning("该玩家距离您五步开外,不能对其使用转向卡_(:зゝ∠)_你平白无故浪费了一张道具卡哦~");
         }
     }
 

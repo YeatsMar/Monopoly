@@ -1,6 +1,7 @@
 package main;
 
 
+import GUI.Observer;
 import util.Calculation;
 
 /**

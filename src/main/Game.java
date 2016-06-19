@@ -8,6 +8,8 @@ import util.Date;
 import util.IO;
 import util.MapFactory;
 
+import java.util.ArrayList;
+
 
 /**
  * Created by mayezhou on 16/4/8.
@@ -18,23 +20,24 @@ public class Game {
     public static Date date;
     public static StockMarket stockMarket;
     public static Player curPlayer;
-    public static Observer observer;
+    public static ArrayList<Observer> observers;
     private int playerID;
     private int playern;
 
     public Game(int number) {
+        observers = new ArrayList<>();
         this.playern = number;
         stockMarket = new StockMarket(10);
         map = MapFactory.build(getClass().getResourceAsStream("/map.txt"));
         map.setStreet(this);
-        date = new Date(2014, 1, 1, 1, this);
+        date = new Date(2014, 1, 1, 1, this);// TODO: 16/6/19 test 
         players = new Player[number];
         playerID = 0;
         for (int i = 0; i < number; i++) {
-            players[i] = new Player("玩家" + (char) ('A' + i), 10000, 10000, i, 1, 10, this);
+            players[i] = new Player("玩家" + (char) ('A' + i), 10000, 10000, i, 1, 10, this);// TODO: 16/6/19 test: modify cash and deposit or ticket points 
             players[i].setSymbol((char) ('A' + i) + " ");
         }
-        curPlayer = players[playerID];
+        curPlayer = players[playerID];// TODO: 16/6/19 test 
     }
 
     public int getPlayerID() {
@@ -46,11 +49,14 @@ public class Game {
     }
 
     public void registerObserver(Observer observer) {
-        this.observer = observer;
+        observers.add(observer);
     }
 
-    public void notifyObserver() {
-        observer.refresh();
+    public static void notifyObserver() {
+        for (Observer o:
+             observers) {
+            o.refresh();
+        }
     }
 
     public String showAllProperty() {
@@ -126,6 +132,7 @@ public class Game {
             curPlayer = players[playerID];
             if (curPlayer.isBankrupt()) {
                 next();
+                return;
             }
         }
         notifyObserver();
@@ -133,21 +140,25 @@ public class Game {
         date.print();
         IO.print("现在是" + curPlayer.getName() + "的操作时间，您的前进方向是"
                 + curPlayer.getDirectionString() + "。");
+        if (!curPlayer.isHealthy()) {
+            map.getDot(20).event(curPlayer);
+            next();
+        }
     }
 
     private void newRound() {
         if (tbc()) {
             playerID = 0;
             curPlayer = players[playerID];
-            if (curPlayer.isBankrupt()) {
-                next();
-            }
             date.addDate();
             if (date.isWeekday()) {
                 stockMarket.update();
             }
+            if (curPlayer.isBankrupt()) {
+                next();
+            }
         } else {
-            MyFrame frame = (MyFrame) observer;
+            MyFrame frame = (MyFrame) observers.get(0);
             over(frame);
             frame.cardLayout.next(frame.mainPanel);//endPanel
         }

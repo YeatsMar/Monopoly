@@ -66,20 +66,21 @@ public class StockMarket {
             return;
         }
         double cost = n * stocks[x].getPrice();
+        cost = Calculation.roundUpDouble(cost);
         if (cost > player.getDeposit()) {
             IO.print("存款余额不足,将扣除现金");
             if (cost-player.getDeposit() > player.getCash()) {
                 IO.warning("现金余额不足,本次购买操作失败");
                 player.printProperty();
             } else {
-                IO.print("成功买入股票"+x+" "+n+"股");
-                player.setDeposit(0);
+                IO.print("成功买入股票"+stocks[x].getName()+" "+n+"股");
                 player.setCash(player.getCash() - (cost-player.getDeposit()));
+                player.setDeposit(0);
                 player.addStockAmount(x, n);
                 player.printProperty();
             }
         } else {
-            IO.print("成功买入股票"+x+" "+n+"股");
+            IO.print("成功买入股票"+stocks[x].getName()+" "+n+"股");
             player.setDeposit(player.getDeposit() - cost);
             player.addStockAmount(x, n);
             player.printProperty();
@@ -99,7 +100,7 @@ public class StockMarket {
         if (player.getStockAmount(x) < n) {
             IO.warning("所持股票数量不足,本次操作失败");
         } else {
-            IO.print("成功卖出股票"+x+" "+n+"股");
+            IO.print("成功卖出股票"+stocks[x].getName()+" "+n+"股");
             player.addStockAmount(x, -n);
             player.setDeposit(player.getDeposit()+n*stocks[x].getPrice());
             player.printProperty();

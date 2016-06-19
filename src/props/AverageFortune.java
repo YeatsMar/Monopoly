@@ -21,10 +21,15 @@ public class AverageFortune extends Prop {
         Game game = player.game;
         Player[] players = game.players;
         double cash = 0;
+        int bankrupt = 0;
         for (Player p : players) {
-            cash += p.getCash();
+            if (p.isBankrupt()) {
+                bankrupt++;
+            } else {
+                cash += p.getCash();
+            }
         }
-        cash /= (double) players.length;
+        cash /= (double)( players.length-bankrupt);
         cash = Calculation.roundUpDouble(cash);
         for (Player p : players) {
             p.setCash(cash);

@@ -28,6 +28,8 @@ public class Monster extends Prop {
             }
             IO.showMessage("当前所在街道所有房屋等级恢复为1");
         } catch (Exception e){
+            e.printStackTrace();
+            System.out.println(e.getMessage());
             IO.showMessage("当前所在点没有街道_(:зゝ∠)_");
         }
     }

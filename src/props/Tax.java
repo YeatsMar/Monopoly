@@ -21,11 +21,15 @@ public class Tax extends Prop {
     private void function(Player user, int playerID) {
         Player p = user.game.players[playerID];
         if (Calculation.relativeDistance(user.getPlayerID(), playerID) <= 5) {
-            p.setDeposit(p.getDeposit() * 0.7);
-            IO.print(user.getName()+"对"+p.getName()+"使用了查税卡!");
-            IO.print("扣除"+p.getName()+"存款30%");
+            if (p.isBankrupt()) {
+                IO.print("该玩家已退出游戏_(:зゝ∠)_你平白无故浪费了一张道具卡哦~");
+            } else {
+                p.setDeposit(p.getDeposit() * 0.7);
+                IO.print(user.getName()+"对"+p.getName()+"使用了查税卡!");
+                IO.print("扣除"+p.getName()+"存款30%");
+            }
         } else {
-            IO.warning("该玩家距离您五步开外,不能对其使用查税卡");
+            IO.warning("该玩家距离您五步开外,不能对其使用查税卡_(:зゝ∠)_你平白无故浪费了一张道具卡哦~");
         }
     }
 

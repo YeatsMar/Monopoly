@@ -21,7 +21,7 @@ public class Barricade extends Prop {
         Map map = game.map;
         Dot dot = map.getDot(dotID);
         dot.setBlocked(true, game);
-        IO.warning("路障放置成功");
+        IO.showMessage("路障放置成功");
     }
 
     @Override
